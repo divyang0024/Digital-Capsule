@@ -1,11 +1,8 @@
 import mongoose from "mongoose"
+import bcrypt from "bcrypt"
+import jwt from 'jsonwebtoken';
 
 const userSchema = new mongoose.Schema({
-    id:{
-        type:Number,
-        required:true,
-        unique:true,
-    },
     name:{
         type:String,
         required:true,
@@ -27,11 +24,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    phone:{
-        type:Number,
-    },
     profilePicture:{
-        type:String //cloudinery
+        type:String //cloudinary
     },
     bio:{
         type:String,
@@ -41,19 +35,17 @@ const userSchema = new mongoose.Schema({
         type:String,
         maxlength:1000
     },
-    email:{
-        type:String,
-        required:true,
-        lowercase:true,
-        unique:[true, "This email is already registered"]
-    },
-    dateOfBirth:{
+    dob:{
         type:Date,
         required:true,
     },
     gender:{
         type:String,
         required:true,
+    },
+    token:{
+        type:String,
+        default:null
     },
     capsulesCreated: [{
         type: mongoose.Schema.Types.ObjectId, 
@@ -68,5 +60,27 @@ const userSchema = new mongoose.Schema({
         ref:"User"
     }]
 }, {timestamps:true})
+
+
+//storing the encrypted password in database for security purpose
+userSchema.pre("save", async function (next) {
+    if(!this.isModified("password")) return next()
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+})
+
+//a method to compare passwords
+
+userSchema.methods.isPasswordCorrect = async function(password){
+    return await bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.generateToken = async function(){
+    const token = await jwt.sign({username:this.username, email:this.email}, process.env.JWT_KEY, {expiresIn:'1d'});
+    this.token = token
+    return token
+}
+
+
 
 export const User = mongoose.model("User", userSchema)
