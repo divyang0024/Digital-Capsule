@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-import bcrypt from "bcrypt"
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken"
+import bcrypt from "bcryptjs"
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -22,10 +22,15 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:true,
+        required: [true, "Please Enter Your Password"],
+        minLength: [8, "Password should be greater than 8 characters"],
+        select: false,
+    },
+    phone:{
+        type:Number,
     },
     profilePicture:{
-        type:String //cloudinary
+        type:String
     },
     bio:{
         type:String,
@@ -35,17 +40,9 @@ const userSchema = new mongoose.Schema({
         type:String,
         maxlength:1000
     },
-    dob:{
-        type:Date,
-        required:true,
-    },
     gender:{
         type:String,
         required:true,
-    },
-    token:{
-        type:String,
-        default:null
     },
     capsulesCreated: [{
         type: mongoose.Schema.Types.ObjectId, 
@@ -59,28 +56,26 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }]
-}, {timestamps:true})
+}, {timestamps:true});
 
-
-//storing the encrypted password in database for security purpose
+//encrypts the password before saving it into the database
 userSchema.pre("save", async function (next) {
-    if(!this.isModified("password")) return next()
-    this.password = await bcrypt.hash(this.password, 10)
-    next()
-})
+  if (!this.isModified("password")) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
+});
 
-//a method to compare passwords
+//genrates jwt token when user registers or login
+userSchema.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
-userSchema.methods.isPasswordCorrect = async function(password){
-    return await bcrypt.compare(password, this.password)
-}
-
-userSchema.methods.generateToken = async function(){
-    const token = await jwt.sign({username:this.username, email:this.email}, process.env.JWT_KEY, {expiresIn:'1d'});
-    this.token = token
-    return token
-}
-
-
+//verify password
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 export const User = mongoose.model("User", userSchema)
