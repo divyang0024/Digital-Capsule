@@ -3,22 +3,27 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import Signin from './Signin';
+import { register } from '../actions/userActions.js';
 import leftArrow from '../assets/leftArrow.png'
+import { useSelector,useDispatch } from 'react-redux';
 
 function Signup() {
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const {loading,error,isAuthenticated,user}=useSelector((state)=>state.user);
   const [alreadyExist, setAlreadyExist] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [isloading, setLoading] = useState(false)
+
+console.log(loading,error,isAuthenticated,user);
 
   useEffect(() => {
-    if (loading == true) {
+    if (isloading == true) {
       setTimeout(() => {
         navigate('/');
       }, 4000);
     }
-  }, [loading]);
+  }, [dispatch,loading]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -31,39 +36,44 @@ function Signup() {
   })
 
 
-  async function addUserToApi() {
-    const url = 'http://localhost:5000/api/user/signup';
+  // async function addUserToApi() {
+  //   const url = 'http://localhost:5000/api/user/signup';
 
-    try {
-      const response = await axios.post(url, formData, {withCredentials:true});
+  //   try {
+  //     const response = await axios.post(url, formData, {withCredentials:true});
 
-      if (response.status === 201) {
-        console.log(response.data);
-        console.log("User created from frontend", response);
-        setFormData({
-          name: "",
-          username: "",
-          email: "",
-          password: "",
-          dob: "",
-          gender: "",
-          bio: ""
-        })
-        setLoading(true);
-      } else {
-        console.log("Error:", response.data.message);
-      }
-    } catch (error) {
-      console.log("Error while creating user:", error.response ? error.response.data : error.message);
-      setAlreadyExist(true)
-    }
-  }
+  //     if (response.status === 201) {
+  //       console.log(response.data);
+  //       console.log("User created from frontend", response);
+  //       setFormData({
+  //         name: "",
+  //         username: "",
+  //         email: "",
+  //         password: "",
+  //         dob: "",
+  //         gender: "",
+  //         bio: ""
+  //       })
+  //       setLoading(true);
+  //     } else {
+  //       console.log("Error:", response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.log("Error while creating user:", error.response ? error.response.data : error.message);
+  //     setAlreadyExist(true)
+  //   }
+  // }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted formdata", formData)
-    addUserToApi();
+    const myForm=new FormData();
+    myForm.set("name",formData.name);
+    myForm.set("username",formData.username);
+    myForm.set("password",formData.password);
+    myForm.set("gender",formData.gender);
+    myForm.set("email",formData.email);
+    dispatch(register(formData));
   }
 
   const handleChange = (e) => {
