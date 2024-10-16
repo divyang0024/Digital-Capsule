@@ -16,17 +16,10 @@ app.use(cookieParser());
 app.use(express.json());
 
 // CORS setup
-const allowedOrigins = ["https://digital-capsule.onrender.com", "https://digital-capsule.vercel.app"];
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: true,
+  credentials: true, 
+  methods: ["GET", "POST", "PUT", "DELETE"], 
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
