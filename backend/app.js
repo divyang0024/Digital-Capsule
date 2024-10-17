@@ -23,6 +23,8 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
+app.options('*', cors());
+
 // Custom routes
 app.use("/user", userRouters);
 
