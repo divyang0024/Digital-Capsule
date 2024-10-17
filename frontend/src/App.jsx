@@ -1,35 +1,30 @@
-import { useEffect } from 'react'
-import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
-import Signup from './pages/Signup.jsx'
-import Home from './pages/Home.jsx'
-import Signin from './pages/Signin.jsx'
-import Dashboard from './pages/Dashboard.jsx'
-import { useDispatch,useSelector } from 'react-redux'
-import { loadUser } from './actions/userActions.js'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Signup from './pages/Signup.jsx';
+import Home from './pages/Home.jsx';
+import Signin from './pages/Signin.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from './actions/userActions.js';
+import ProtectedRoute from "./protectedRoute/ProtectedRoute.jsx";
+import { useEffect } from 'react';
 
 function App() {
-const {isAuthenticated,user}=useSelector(state=>state.user);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(loadUser());
-  },[]);
-
-console.log(user);
+  }, [dispatch]);
 
   return (
     <Router>
-    <>
       <Routes>
-        <Route path="/home" element={<Home/>} />
-        <Route path="/" element={<Dashboard/>} />
-        <Route path="/signup" element={<Signup/>} />
-        <Route path="/signin" element={<Signin/>} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/" element={<ProtectedRoute element={Dashboard} />} />
       </Routes>
-
-    </>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
