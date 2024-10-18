@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, clearErrors } from '../actions/userActions.js';
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import signInImg from "../assets/login.jpg";
 import leftArrow from '../assets/leftArrow.png';
@@ -11,6 +11,7 @@ function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, isAuthenticated } = useSelector((state) => state.user);
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
 
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -18,15 +19,19 @@ function Signin() {
   });
 
   useEffect(() => {
-    if (error) {
-      toast.error(error.msg);  
+    if (isFirstVisit) {
+      toast.warning('Please sign up if you don\'t have an account yet.', {
+        onClose: () => setIsFirstVisit(false)
+      });
+    } else if (error) {
+      toast.error(error.msg);
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
       toast.success('Login Successful! Redirecting...');
       setTimeout(() => navigate('/'), 3000);
     }
-  }, [dispatch, error, isAuthenticated, navigate]);
+  }, [dispatch, error, isAuthenticated, navigate, isFirstVisit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

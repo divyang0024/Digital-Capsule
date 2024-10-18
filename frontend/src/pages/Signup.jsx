@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { register, clearErrors } from '../actions/userActions.js';
 import { toast, ToastContainer } from 'react-toastify';
@@ -10,7 +9,8 @@ import leftArrow from '../assets/leftArrow.png';
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, isAuthenticated, user } = useSelector((state) => state.user);
+  const { loading, error, isAuthenticated } = useSelector((state) => state.user);
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,7 +23,11 @@ function Signup() {
   });
 
   useEffect(() => {
-    if (error) {
+    if (isFirstVisit) {
+      toast.info('Welcome! Create your account to get started.', {
+        onClose: () => setIsFirstVisit(false)
+      });
+    } else if (error) {
       toast.error(error.msg);
       dispatch(clearErrors());
     }
@@ -31,7 +35,7 @@ function Signup() {
       toast.success('Signup Successful! Redirecting...');
       setTimeout(() => navigate('/'), 3000);
     }
-  }, [dispatch, error, isAuthenticated, navigate]);
+  }, [dispatch, error, isAuthenticated, navigate, isFirstVisit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -90,7 +94,7 @@ function Signup() {
                   </select>
                 </div>
 
-                <textarea name="bio" id="bio" rows="1" cols="48" maxLength="200" placeholder='Tell us something about yourself (max 200 characters)' className='border-2 border-black p-1 m-1 rounded-md overflow-hidden'></textarea>
+                <textarea name="bio" id="bio" rows="1" cols="48" maxLength="200" placeholder='Tell us something about yourself (max 200 characters)' className='border-2 border-black p-1 m-1 rounded-md overflow-hidden' onChange={handleChange}></textarea>
 
                 <button className='bg-[#35CCED] rounded-md p-1 m-1 text-white' disabled={loading}>SIGN UP</button>
               </form>
