@@ -12,13 +12,13 @@ export const userReducer = createSlice({
     LOGIN_REQUEST: (state) => {
       state.loading = true;
       state.isAuthenticated = false;
-      state.error = null; // Clear previous errors when starting new login request
+      state.error = null;
     },
     LOGIN_SUCCESS: (state, action) => {
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload;
-      state.error = null; // Clear any errors on success
+      state.error = null;
     },
     LOGIN_FAIL: (state, action) => {
       state.loading = false;
