@@ -8,7 +8,7 @@ import cloudinary from "cloudinary";
 const registerUser=catchasyncerrors(async(req,res,next)=>{
 
 const {name,username,email,password,gender}=req.body;
-console.log(req.body.avatar);
+
 const user=await User.create({
     name,username,email,gender,password
 });

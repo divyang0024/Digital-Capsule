@@ -17,11 +17,7 @@ const commentSchema = new mongoose.Schema({
 }, { _id: false });
 
 const capsuleSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-    },
-  title: {
+ title: {
     type: String,
     required: true,
   },
@@ -38,13 +34,18 @@ const capsuleSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  media: [{
-    type: String, 
-  }],
-
-  tags: [{
-    type: String, 
-  }],
+  media: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -54,15 +55,18 @@ const capsuleSchema = new mongoose.Schema({
   comments: [commentSchema],
 
   visibility: {
-    type: String, //public, private
-    default: "public",
+    type: String, 
+    default: "private",
   },
-
-  status: {
-    type: String,
-    default: "published",
+  
+  isOpen: {
+    type: Boolean,
+    default: false,
   },
-
+ releaseAt: {
+    type: Date,
+    required: true,
+  },
 }, { timestamps: true });
 
 export const Capsule = mongoose.model("Capsule", capsuleSchema);
