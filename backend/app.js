@@ -1,7 +1,6 @@
 import express from "express";
-import morgan from "morgan";  
+import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import multer from "multer";
 import cors from "cors";
 import { errorMiddleware } from "./middlewares/error.js";
 import { router as userRouters } from "./routes/userroutes.js";
@@ -18,8 +17,8 @@ app.use(express.json());
 // CORS setup
 app.use(cors({
   origin: true,
-  credentials: true, 
-  methods: ["GET", "POST", "PUT", "DELETE"], 
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
