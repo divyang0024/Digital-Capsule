@@ -1,4 +1,5 @@
 import { Capsule } from "../db/capsule.models.js";
+import { User } from "../db/user.models.js";
 import catchAsyncErrors from "../middlewares/catchasyncerrors.js";
 import { ErrorHandler } from "../utils/errorhandler.js";
 import cloudinary from "cloudinary";
@@ -14,26 +15,26 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
 
-let media = [];
+  let media = [];
 
-if (req.files && req.files.length > 0) {
-  media = await Promise.all(
-    req.files.map(async (file) => {
-      const result = await new Promise((resolve, reject) => {
-        cloudinary.v2.uploader.upload_stream({ folder: "capsule_images" }, (error, result) => {
-          if (error) {
-            reject(new ErrorHandler("Cloudinary upload failed", 500));
-          }
-          resolve({
-            public_id: result.public_id,
-            url: result.secure_url,
-          });
-        }).end(file.buffer);
-      });
-      return result;
-    })
-  );
-}
+  if (req.files && req.files.length > 0) {
+    media = await Promise.all(
+      req.files.map(async (file) => {
+        const result = await new Promise((resolve, reject) => {
+          cloudinary.v2.uploader.upload_stream({ folder: "capsule_images" }, (error, result) => {
+            if (error) {
+              reject(new ErrorHandler("Cloudinary upload failed", 500));
+            }
+            resolve({
+              public_id: result.public_id,
+              url: result.secure_url,
+            });
+          }).end(file.buffer);
+        });
+        return result;
+      })
+    );
+  }
 
   const newCapsule = await Capsule.create({
     title,
@@ -45,6 +46,10 @@ if (req.files && req.files.length > 0) {
     isOpened: false,
     releaseAt,
   });
+
+  const user = await User.findById(req.user.id);
+  user.capsulesCreated.push(newCapsule._id);
+  await user.save();
 
   res.status(201).json({
     success: true,
