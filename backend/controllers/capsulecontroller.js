@@ -15,7 +15,7 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
   }
 
 let media = [];
-console.log(req.files);
+
 if (req.files && req.files.length > 0) {
   media = await Promise.all(
     req.files.map(async (file) => {
@@ -53,4 +53,17 @@ if (req.files && req.files.length > 0) {
   });
 });
 
-export { createCapsule, upload };
+
+const getUserCapsules = catchAsyncErrors(async (req, res, next) => {
+  const myCapsules = await Capsule.find({ createdBy: req.user.id }); 
+
+  res.status(200).json({
+    success: true,
+    message: myCapsules.length > 0 ? "Capsules retrieved successfully" : "No capsules made yet",
+    data: myCapsules,  
+  });
+});
+
+
+
+export { createCapsule,getUserCapsules, upload };
