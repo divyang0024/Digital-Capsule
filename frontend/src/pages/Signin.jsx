@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login, clearErrors } from '../actions/userActions.js';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import signInImg from "../assets/login.jpg";
-import leftArrow from '../assets/leftArrow.png';
+import signinImg from '../assets/signinImg.webp';
+import leftArrow from '../assets/leftArrow.webp';
 
 function Signin() {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ function Signin() {
               </form>
             </div>
             <div className='w-[50%] h-[100%]'>
-              <img src={signInImg} alt="sign in image" className='object-cover h-full' />
+              <img src={signinImg} alt="sign in image" className='object-cover h-full' />
             </div>
           </div>
         </div>
