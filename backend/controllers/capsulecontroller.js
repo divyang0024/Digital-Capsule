@@ -8,6 +8,7 @@ import multer from "multer";
 const storage = multer.memoryStorage();
 const upload = multer({ storage }); 
 
+//create capsule
 const createCapsule = catchAsyncErrors(async (req, res, next) => {
   const { title, description, content, visibility, releaseAt } = req.body;
 
@@ -23,7 +24,7 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
         const result = await new Promise((resolve, reject) => {
           cloudinary.v2.uploader.upload_stream({ folder: "capsule_images" }, (error, result) => {
             if (error) {
-              reject(new ErrorHandler("Cloudinary upload failed", 500));
+              reject(new ErrorHandler("Image upload failed", 500));
             }
             resolve({
               public_id: result.public_id,
@@ -58,7 +59,7 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-
+//get user data
 const getUserCapsules = catchAsyncErrors(async (req, res, next) => {
   const myCapsules = await Capsule.find({ createdBy: req.user.id }); 
 

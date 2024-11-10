@@ -23,7 +23,7 @@ console.log(user.user);
      capsules created : {user.user.capsulesCreated.length} capsules
      </h1>
      <h1>
-     private capsule access : {user.user.capsulesCreated.length} capsules
+     private capsule access : {user.user.capsulesInvited.length} capsules
      </h1>
     </div>
   )
