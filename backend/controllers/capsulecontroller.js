@@ -70,6 +70,12 @@ const getUserCapsules = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//update capsule status
+const updateCapsuleStatus=catchAsyncErrors(async (req, res, next) => {
+  await Capsule.findByIdAndUpdate(req.body.userId, {isOpen:true});
+  res.status(200).json({
+    success: true,  
+  });
+});
 
-
-export { createCapsule,getUserCapsules, upload };
+export { createCapsule,getUserCapsules,updateCapsuleStatus, upload };

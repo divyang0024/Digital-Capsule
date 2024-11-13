@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+body{
+ @apply  m-0 p-0;
+}
+
+.main-container{
+ @apply min-h-screen flex bg-[#F6FDC3];
+}
+
+.sidebar-container{
+    @apply bg-[#FFCF96] min-h-screen max-w-5xl flex flex-col items-center justify-evenly p-6;
+}
+
+.header-container{
+    @apply text-[#F6FDC3] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0)] text-3xl font-semibold;
+}
+
+.profile-container{
+ @apply px-4 flex flex-col break-all gap-2 text-white text-base font-semibold items-center text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)];
+}
+
+.username-name{
+    @apply text-black drop-shadow-none;
+}
+
+.username-email{
+    @apply text-black text-xs font-light drop-shadow-none;
+}
+
+.user-icon{
+    @apply text-6xl;
+}
+
+.togglebar-container{
+@apply p-4 text-white flex flex-col items-center gap-6 ; 
+}
+
+.toggle-button-contianer{
+  @apply flex text-lg gap-1.5 items-center font-semibold text-black drop-shadow-lg duration-300;
+}
+
+.togglebar-icons{
+@apply text-xl;
+}
+
+.content-container{
+    @apply flex-grow flex flex-col ;
+}
+
+.panel-container{
+ @apply text-3xl font-bold text-[#FF8080]; 
+}
+
+.panel-menu-container{
+@apply flex p-8 justify-between;
+}
+
+.capsule-container{
+    @apply flex-grow pl-8 pr-8 pb-8;
+}
+
+.logout-container{
+@apply text-[#FF8080] text-sm font-medium flex gap-1 items-center hover:text-[#CDFAD5] duration-300 hover:drop-shadow-lg;
+}
+
+.logout-icon{
+    @apply text-2xl;
+}
+}

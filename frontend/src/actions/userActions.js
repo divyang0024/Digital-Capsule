@@ -18,7 +18,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const config = {
       headers: { "Content-Type": "application/json" },
-      withCredentials: true, // Include this to send cookies
+      withCredentials: true,
     };
 
     const { data } = await axios.post(

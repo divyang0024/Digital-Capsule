@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .mycapsule-container{
+        @apply grid grid-cols-3 gap-2;
+    }
+    .capsulecard-container{
+        @apply bg-white shadow-md p-2 rounded-xl;
+    }
+}
