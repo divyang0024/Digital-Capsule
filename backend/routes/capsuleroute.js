@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/create", isAuthenticatedUser,upload.array('media', 5), createCapsule);
 router.get("/me", isAuthenticatedUser, getUserCapsules);
-router.put("/status/update", updateCapsuleStatus);
+router.put("/status/update",isAuthenticatedUser,updateCapsuleStatus);
 
 export { router };
