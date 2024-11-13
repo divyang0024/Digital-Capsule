@@ -72,9 +72,11 @@ const getUserCapsules = catchAsyncErrors(async (req, res, next) => {
 
 //update capsule status
 const updateCapsuleStatus=catchAsyncErrors(async (req, res, next) => {
-  await Capsule.findByIdAndUpdate(req.body.userId, {isOpen:true});
+  const capsule = await Capsule.findByIdAndUpdate(req.body.userId, {isOpen:true});
   res.status(200).json({
-    success: true,  
+    success: true,
+    data:capsule,
+    msg:"capsule status updated", 
   });
 });
 
