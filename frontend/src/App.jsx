@@ -3,6 +3,7 @@ import Signup from './pages/Signup.jsx';
 import Home from './pages/Home.jsx';
 import Signin from './pages/Signin.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import CapsuleDetails from './pages/CapsuleDetails.jsx';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions.js';
 import ProtectedRoute from "./protectedRoute/ProtectedRoute.jsx";
@@ -29,6 +30,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+          <Route path="/capsule/:id" element={<CapsuleDetails />} />
       </Routes>
     </Router>
   );
