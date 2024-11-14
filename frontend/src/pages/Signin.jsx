@@ -29,7 +29,7 @@ function Signin() {
     }
     if (isAuthenticated) {
       toast.success('Login Successful! Redirecting...');
-      setTimeout(() => navigate('/'), 3000);
+      setTimeout(() => navigate('/',{ replace: true }), 3000);
     }
   }, [dispatch, error, isAuthenticated, navigate, isFirstVisit]);
 

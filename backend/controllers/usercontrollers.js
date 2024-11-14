@@ -39,16 +39,18 @@ const user=await User.findOne({email}).select("+password");
 });
 
 // logout user
-const logoutUser=catchasyncerrors(async (req, res, next) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
+const logout = (req, res) => {
+  res.cookie('token', null, {
+    expires: new Date(0),
     httpOnly: true,
   });
+
   res.status(200).json({
     success: true,
-    message: "Logged Out",
+    message: 'User logged out successfully',
   });
-});
+};
+
 
 // get user details
 const getUserDetails=catchasyncerrors(async (req, res, next) => {

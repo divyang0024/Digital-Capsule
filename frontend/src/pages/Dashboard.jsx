@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../actions/userActions.js';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import '../styles/Dashboard.css';
 import { useSelector } from 'react-redux';
@@ -16,6 +18,19 @@ import Brewcapule from './Brewcapule';
 function Dashboard() {
   const [currentContent, setCurrentContent] = useState('mycapsules');
   const { user } = useSelector(state => state.user);
+  const dispatch=useDispatch();
+
+useEffect(() => {
+  window.history.pushState(null, document.title, window.location.href);
+  const handleBackButton = (event) => {
+    window.history.pushState(null, document.title, window.location.href);
+  };
+  window.addEventListener('popstate', handleBackButton);
+  return () => {
+    window.removeEventListener('popstate', handleBackButton);
+  };
+}, []);
+
 
   const renderContent = () => {
     switch (currentContent) {
@@ -35,6 +50,10 @@ function Dashboard() {
   const toggleContent = (id) => {
     setCurrentContent(id); 
   };
+
+  const handleLogout=()=>{
+   dispatch(logoutUser());
+  }
 
   return (
     <div className='main-container'>
@@ -66,7 +85,7 @@ function Dashboard() {
         </div>
         <div className="logout-container">
           <IoLogOut className='logout-icon' />
-          <button>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
       <div className='content-container'>
@@ -84,7 +103,7 @@ function Dashboard() {
 
       <MenuItems
         transition
-        className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+        className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
         <div className="py-1">
           <MenuItem>
@@ -95,24 +114,15 @@ function Dashboard() {
               Account settings
             </a>
           </MenuItem>
-          <MenuItem>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
-            >
-              About us
-            </a>
-          </MenuItem>
-          <form action="#" method="POST">
             <MenuItem>
               <button
-                type="submit"
+                type="button"
                 className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+               onClick={handleLogout}  
               >
                 Sign out
               </button>
             </MenuItem>
-          </form>
         </div>
       </MenuItems>
     </Menu>

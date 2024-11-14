@@ -9,6 +9,9 @@ import {
   LOAD_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
+  LOGOUT_USER_REQUEST,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_FAIL,
   CLEAR_ERRORS, 
 } from "../reducer/userReducer.js";
 
@@ -40,7 +43,7 @@ export const register = (userData) => async (dispatch) => {
 
     const config = {
       headers: { "Content-Type": "multipart/form-data" },
-      withCredentials: true, // Include this to send cookies
+      withCredentials: true,
     };
 
     const { data } = await axios.post(
@@ -61,7 +64,7 @@ export const loadUser = () => async (dispatch) => {
     dispatch(LOAD_USER_REQUEST());
 
     const config = {
-      withCredentials: true, // Include this to send cookies
+      withCredentials: true,
     };
 
     const { data } = await axios.get(`https://digital-capsule.onrender.com/user/me`, config);
@@ -69,6 +72,23 @@ export const loadUser = () => async (dispatch) => {
     dispatch(LOAD_USER_SUCCESS(data));
   } catch (error) {
     dispatch(LOAD_USER_FAIL({ msg: error.response?.data.message || error.message }));
+  }
+};
+
+//logout
+export const logoutUser = () => async (dispatch) => {
+  try {
+    dispatch(LOGOUT_USER_REQUEST());
+
+    const config = {
+      withCredentials: true,
+    };
+
+    await axios.get(`https://digital-capsule.onrender.com/user/logout`, config);
+    
+    dispatch(LOGOUT_USER_SUCCESS());
+  } catch (error) {
+    dispatch(LOGOUT_USER_FAIL({ msg: error.response?.data.message || error.message }));
   }
 };
 

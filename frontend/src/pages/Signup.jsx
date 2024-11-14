@@ -55,7 +55,7 @@ function Signup() {
 
   return (
     <>
-      <div className='bg-[#35CCED] h-[100vh] w-[100vw] flex flex-col '>
+      <div className='bg-[#35CCED] h-[100vh] w-[100vw] flex flex-col'>
         <Link to="/" className='absolute top-2 left-4'>
           <img src={leftArrow} alt="home icon" width="35" height="35" />
         </Link>
