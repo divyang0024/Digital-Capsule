@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../actions/userActions.js';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import '../styles/Dashboard.css';
@@ -30,7 +31,6 @@ useEffect(() => {
     window.removeEventListener('popstate', handleBackButton);
   };
 }, []);
-
 
   const renderContent = () => {
     switch (currentContent) {
