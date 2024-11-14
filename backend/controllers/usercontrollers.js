@@ -39,7 +39,7 @@ const user=await User.findOne({email}).select("+password");
 });
 
 // logout user
-const logout = (req, res) => {
+const logoutUser = (req, res) => {
   res.cookie('token', null, {
     expires: new Date(0),
     httpOnly: true,
