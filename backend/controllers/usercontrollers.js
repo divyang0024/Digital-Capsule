@@ -40,14 +40,14 @@ const user=await User.findOne({email}).select("+password");
 
 // logout user
 const logoutUser = (req, res) => {
-  res.cookie('token', null, {
-    expires: new Date(0),
+ res.clearCookie("token", {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None',
   });
-
   res.status(200).json({
     success: true,
-    message: 'User logged out successfully',
+    message: "Logged out successfully",
   });
 };
 

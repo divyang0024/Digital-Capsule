@@ -6,7 +6,7 @@ import fileUpload from "express-fileupload";
 
 router.route("/register").post(fileUpload(),userControls.registerUser);
 router.route("/login").post(userControls.loginUser);
-router.route("/logout").get(userControls.logoutUser);
+router.route("/logout").post(userControls.logoutUser);
 router.route("/me").get(isAuthenticatedUser,userControls.getUserDetails);
 
 export {
