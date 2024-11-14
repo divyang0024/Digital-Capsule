@@ -46,6 +46,7 @@ res.clearCookie("token", {
     sameSite: 'None',
     path: '/',
     expires: new Date(0),
+    domain:"digital-capsule.onrender.com",
   });
 
   res.status(200).json({
