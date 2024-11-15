@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-const { ErrorHandler } = require("./errorhandler.js");
+import { ErrorHandler } from "./errorhandler.js";
 
 const sendInvitationEmail = async (friendsEmails, capsuleId) => {
   // Create a transporter for sending email using a service like Gmail or any other SMTP service
