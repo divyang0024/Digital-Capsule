@@ -40,13 +40,10 @@ const user=await User.findOne({email}).select("+password");
 
 // logout user
 const logoutUser = (req, res) => {
-res.clearCookie("token", {
+  
+ res.cookie("token", null, {
+    expires: new Date(Date.now()),
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'None',
-    path: '/',
-    expires: new Date(0),
-    domain:"digital-capsule.onrender.com",
   });
 
   res.status(200).json({
