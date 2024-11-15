@@ -4,20 +4,20 @@ import catchAsyncErrors from "../middlewares/catchasyncerrors.js";
 import { ErrorHandler } from "../utils/errorhandler.js";
 import cloudinary from "cloudinary";
 import multer from "multer";
+import { sendInvitationEmail } from "../utils/sendEmail.js";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage }); 
 
 //create capsule
 const createCapsule = catchAsyncErrors(async (req, res, next) => {
-  const { title, description, content, visibility, releaseAt } = req.body;
+  const { title, description, content, visibility, releaseAt, friends } = req.body;
 
   if (!title || !description || !content || !releaseAt) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
 
   let media = [];
-
   if (req.files && req.files.length > 0) {
     media = await Promise.all(
       req.files.map(async (file) => {
@@ -52,9 +52,11 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
   user.capsulesCreated.push(newCapsule._id);
   await user.save();
 
+  await sendInvitationEmail(friends, newCapsule._id);
+
   res.status(201).json({
     success: true,
-    message: "Capsule created successfully",
+    message: "Capsule created successfully and invitations sent",
     data: newCapsule,
   });
 });
