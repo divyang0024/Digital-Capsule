@@ -83,10 +83,11 @@ export const logoutUser = () => async (dispatch) => {
     const config = {
       withCredentials: true,
     };
-
-    await axios.post(`https://digital-capsule.onrender.com/user/logout`, config);
+    
+    await axios.post(`https://digital-capsule.onrender.com/user/logout`, {}, config);
     
     dispatch(LOGOUT_USER_SUCCESS());
+    
   } catch (error) {
     dispatch(LOGOUT_USER_FAIL({ msg: error.response?.data.message || error.message }));
   }
