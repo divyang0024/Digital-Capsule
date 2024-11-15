@@ -40,10 +40,13 @@ const user=await User.findOne({email}).select("+password");
 
 // logout user
 const logoutUser = (req, res) => {
-  
- res.cookie("token", null, {
-    expires: new Date(Date.now()),
+  // Use res.clearCookie without `expires` to follow future Express standards
+  res.clearCookie("token", {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+    sameSite: 'None', // Required for cross-origin cookies
+    path: '/', // Clear the cookie across the entire domain
+    domain: "digital-capsule.onrender.com" // Make sure this matches your deployment
   });
 
   res.status(200).json({
@@ -51,6 +54,7 @@ const logoutUser = (req, res) => {
     message: "Logged out successfully",
   });
 };
+
 
 
 // get user details
