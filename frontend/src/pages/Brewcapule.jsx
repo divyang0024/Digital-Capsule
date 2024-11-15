@@ -248,9 +248,9 @@ function Brewcapsule() {
         </form>
       </div>
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-          <div className="loader">Loading...</div>
-        </div>
+          <div className="fixed top-0 left-0 z-50 h-full w-full bg-white bg-opacity-50 flex justify-center items-center overflow-y-auto">
+        <div className="loader"></div>
+      </div>
       )}
       <ToastContainer />
     </>
