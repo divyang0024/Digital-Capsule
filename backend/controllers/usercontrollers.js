@@ -40,26 +40,13 @@ const loginUser = catchasyncerrors(async (req, res, next) => {
 
 // logout user
 const logoutUser = (req, res) => {
-  // Log the value of the token for debugging
-  console.log("Token before clearing:", req.cookies.token);
-
-  // Checking if the token exists
-  const token = req.cookies.token;
-  if (token) {
-    console.log("cookie exists");
-  }
-
-  // Clearing the cookie
+ 
   res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
-    sameSite: 'None', // Required for cross-origin cookies
-    path: '/', // Clear the cookie across the entire domain
-    // domain: "digital-capsule.onrender.com" 
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None',
+    path: '/',
   });
-
-  // Log the token after clearing for debugging
-  console.log("Token after clearing:", req.cookies.token);
 
   res.status(200).json({
     success: true,

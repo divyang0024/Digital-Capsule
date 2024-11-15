@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../actions/userActions.js';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import '../styles/Dashboard.css';
@@ -15,6 +14,8 @@ import Mycapsule from './Mycapsule';
 import Privatecapsule from './Privatecapsule';
 import PublicCapsule from './PublicCapsule';
 import Brewcapule from './Brewcapule';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Dashboard() {
   const [currentContent, setCurrentContent] = useState('mycapsules');
@@ -52,7 +53,10 @@ useEffect(() => {
   };
 
   const handleLogout=()=>{
-   dispatch(logoutUser());
+  toast.success('Logout Successful! Redirecting...');
+  setTimeout(() => {
+    dispatch(logoutUser());
+  }, 3000);
   }
 
   return (
@@ -132,6 +136,7 @@ useEffect(() => {
         {renderContent()}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
