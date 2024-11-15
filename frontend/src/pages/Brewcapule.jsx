@@ -24,6 +24,15 @@ function Brewcapsule() {
     if (recieved) {
       toast.success('Capsule created successfully');
       dispatch(clearErrors());
+      setTitle('');
+      setDescription('');
+      setContent('');
+      setVisibility('private');
+      setReleaseAt(null);
+      setMedia([]);
+      setFriends([]);
+      setFriendInput('');
+      window.scrollTo(0, 0);
     }
     if (error) {
       toast.error('There was some problem making the capsule');
@@ -248,9 +257,9 @@ function Brewcapsule() {
         </form>
       </div>
       {loading && (
-          <div className="fixed top-0 left-0 z-50 h-full w-full bg-white bg-opacity-50 flex justify-center items-center overflow-y-auto">
-        <div className="loader"></div>
-      </div>
+        <div className="fixed top-0 left-0 z-50 h-full w-full bg-white bg-opacity-50 flex justify-center items-center overflow-y-auto">
+          <div className="loader"></div>
+        </div>
       )}
       <ToastContainer />
     </>
