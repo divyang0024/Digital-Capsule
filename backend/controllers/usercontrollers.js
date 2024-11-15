@@ -55,7 +55,7 @@ const logoutUser = (req, res) => {
     secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
     sameSite: 'None', // Required for cross-origin cookies
     path: '/', // Clear the cookie across the entire domain
-    domain: "digital-capsule.onrender.com" // Ensure this matches your deployed backend domain
+    // domain: "digital-capsule.onrender.com" 
   });
 
   // Log the token after clearing for debugging

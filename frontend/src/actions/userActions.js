@@ -80,8 +80,11 @@ export const logoutUser = () => async (dispatch) => {
   try {
     dispatch(LOGOUT_USER_REQUEST());
 
-    const config = {
+     const config = {
       withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      }
     };
     
     await axios.post(`https://digital-capsule.onrender.com/user/logout`, {}, config);
