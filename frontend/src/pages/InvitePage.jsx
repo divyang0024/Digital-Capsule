@@ -53,10 +53,10 @@ function InvitePage() {
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <p>You have been successfully invited to the capsule!</p>
+      {loading && (
+        <div className="fixed top-0 left-0 z-50 h-full w-full bg-white bg-opacity-50 flex justify-center items-center overflow-y-auto">
+          <div className="loader"></div>
+        </div>
       )}
 
     </div>
