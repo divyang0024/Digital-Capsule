@@ -25,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `https://digital-capsule.onrender.com/user/login`,
+      `https://digital-capsule-backend.vercel.app/user/login`,
       { email, password },
       config
     );
@@ -47,7 +47,7 @@ export const register = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `https://digital-capsule.onrender.com/user/register`,
+      `https://digital-capsule-backend.vercel.app/user/register`,
       userData,
       config
     );
@@ -67,7 +67,7 @@ export const loadUser = () => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.get(`https://digital-capsule.onrender.com/user/me`, config);
+    const { data } = await axios.get(`https://digital-capsule-backend.vercel.app/user/me`, config);
 
     dispatch(LOAD_USER_SUCCESS(data));
   } catch (error) {
@@ -87,7 +87,7 @@ export const logoutUser = () => async (dispatch) => {
       }
     };
     
-    await axios.post(`https://digital-capsule.onrender.com/user/logout`, {}, config);
+    await axios.post(`https://digital-capsule-backend.vercel.app/user/logout`, {}, config);
     
     dispatch(LOGOUT_USER_SUCCESS());
     

@@ -21,7 +21,7 @@ export const brewCapsule = (capsuleData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `https://digital-capsule.onrender.com/capsule/create`,
+      `https://digital-capsule-backend.vercel.app/capsule/create`,
       capsuleData,
       config
     );
@@ -40,7 +40,7 @@ export const getUserCapsules = () => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.get(`https://digital-capsule.onrender.com/capsule/me`, config);
+    const { data } = await axios.get(`https://digital-capsule-backend.vercel.app/capsule/me`, config);
 
     dispatch(GET_USER_CAPSULE_SUCCESS(data));
   } catch (error) {
@@ -58,7 +58,7 @@ export const updateCapsuleStatus = (userId) => async (dispatch) => {
     
     const formData = new FormData();
     formData.append("userId", userId);
-    await axios.put(`https://digital-capsule.onrender.com/capsule/me`,userId,config);
+    await axios.put(`https://digital-capsule-backend.vercel.app/capsule/me`,userId,config);
 
     dispatch(UPDATE_USER_CAPSULE_STATUS_SUCCESS());
   } catch (error) {
