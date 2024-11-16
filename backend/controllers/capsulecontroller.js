@@ -52,7 +52,7 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
   user.capsulesCreated.push(newCapsule._id);
   await user.save();
 
-  await sendInvitationEmail(friends, newCapsule._id);
+  await sendInvitationEmail(friends, newCapsule._id,req.user,newCapsule);
 
   res.status(201).json({
     success: true,
