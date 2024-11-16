@@ -65,10 +65,60 @@ const getUserDetails = catchasyncerrors(async (req, res, next) => {
   });
 });
 
+//verify if user exists.
+const checkEmailExists = async (req, res, next) => {
+  const { email } = req.params;
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Email not found",
+        exists: false,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      exists: true,
+    });
+  } catch (error) {
+    return next(new ErrorHandler('Error checking email existence', 500));
+  }
+};
+
+const inviteUserToCapsule = async (req, res, next) => {
+  const { email, capsuleId } = req.body; // Get the email and capsuleId from the request body
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      // If the user with the email doesn't exist, respond with an error
+      return next(new ErrorHandler('User with the given email does not exist', 404));
+    }
+
+    // Add the capsuleId to the capsulesInvited array
+    if (!user.capsulesInvited.includes(capsuleId)) {
+      user.capsulesInvited.push(capsuleId);
+      await user.save(); // Save the updated user document
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'User invited to capsule successfully',
+    });
+  } catch (error) {
+    return next(new ErrorHandler('Error inviting user to capsule', 500));
+  }
+};
 
 export {
   registerUser,
   loginUser,
   logoutUser,
   getUserDetails,
+  checkEmailExists,
+  inviteUserToCapsule,
 }

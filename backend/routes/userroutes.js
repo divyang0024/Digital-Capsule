@@ -8,6 +8,8 @@ router.route("/register").post(fileUpload(),userControls.registerUser);
 router.route("/login").post(userControls.loginUser);
 router.route("/logout").post(userControls.logoutUser);
 router.route("/me").get(isAuthenticatedUser,userControls.getUserDetails);
+router.get('/:email', userControls.checkEmailExists);
+router.post('/invite', userControls.inviteUserToCapsule);
 
 export {
     router,

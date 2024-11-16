@@ -7,7 +7,6 @@ function InvitePage() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Correctly parse the query parameters
   const queryParams = new URLSearchParams(window.location.search);
   const capsuleId = queryParams.get('capsuleId'); // Get the capsuleId from the query string
 
@@ -15,10 +14,15 @@ function InvitePage() {
     const checkEmailAndInvite = async () => {
       try {
         // Check if the email exists in the database
-        const response = await axios.get(`/api/users/${email}`);
+        const response = await axios.get(`https://digital-capsule-backend.vercel.app/user/${email}`, { withCredentials: true });
         if (response.data.exists) {
           // Email exists, add the capsuleId to the friend's list
-          await axios.post(`/api/users/invite`, { email, capsuleId });
+          await axios.post(`https://digital-capsule-backend.vercel.app/api/user/invite`, { email, capsuleId }, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
           setLoading(false);
           // Optionally redirect to a confirmation page or dashboard
         } else {
