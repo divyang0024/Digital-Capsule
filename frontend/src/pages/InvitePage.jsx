@@ -20,7 +20,7 @@ function InvitePage() {
         console.log(response.data.exists);
         if (response.data.exists) {
           // Email exists, add the capsuleId to the friend's list
-          await axios.post(`https://digital-capsule-backend.vercel.app/api/user/invite`, { email, capsuleId }, {
+          await axios.post(`https://digital-capsule-backend.vercel.app/user/invite`, { email, capsuleId }, {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
