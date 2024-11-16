@@ -27,10 +27,16 @@ function InvitePage() {
             }
           });
           setLoading(false);
-          // Optionally redirect to a confirmation page or dashboard
+          toast.info('if you are already logged in you will be automatically redirected to home page otherwise log in');
+          setTimeout(() => {
+          }, 3000);
+          navigate("/signin");
         } else {
           setLoading(false);
-          navigate("/signup"); // Redirect to signup if email doesn't exist
+          toast.error('You dont have an account first make an account, then click on this link again');
+          setTimeout(() => {
+          }, 3000);
+          navigate("/signup");
         }
       } catch (error) {
         console.error("Error checking email", error);
@@ -38,7 +44,7 @@ function InvitePage() {
         toast.error('You dont have an account first make an account, then click on this link again');
         setTimeout(() => {
         }, 3000);
-        navigate("/signup"); // Redirect to signup on error
+        navigate("/signup");
       }
     };
 
