@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 function InvitePage() {
@@ -15,6 +17,7 @@ function InvitePage() {
       try {
         // Check if the email exists in the database
         const response = await axios.get(`https://digital-capsule-backend.vercel.app/user/${email}`, { withCredentials: true });
+        console.log(response.data.exists);
         if (response.data.exists) {
           // Email exists, add the capsuleId to the friend's list
           await axios.post(`https://digital-capsule-backend.vercel.app/api/user/invite`, { email, capsuleId }, {
@@ -32,6 +35,9 @@ function InvitePage() {
       } catch (error) {
         console.error("Error checking email", error);
         setLoading(false);
+        toast.error('You dont have an account first make an account, then click on this link again');
+        setTimeout(() => {
+        }, 3000);
         navigate("/signup"); // Redirect to signup on error
       }
     };
@@ -46,6 +52,7 @@ function InvitePage() {
       ) : (
         <p>You have been successfully invited to the capsule!</p>
       )}
+
     </div>
   );
 }
