@@ -27,7 +27,7 @@ function InvitePage() {
             }
           });
           setLoading(false);
-          toast.info('if you are already logged in you will be automatically redirected to home page otherwise log in');
+          toast.info('INVITATION ACCEPTED');
           setTimeout(() => {
           }, 3000);
           navigate("/signin");
