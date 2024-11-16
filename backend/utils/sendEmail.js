@@ -26,7 +26,7 @@ const sendInvitationEmail = async (friendsEmails, capsuleId,sender,capsuleDetail
 
           <ul>
             <li><strong>✨ Capsule Title:</strong> ${capsuleDetails.title}</li>
-            <li><strong>📜 Capsule Title:</strong> ${capsuleDetails.description}</li>
+            <li><strong>📜 Capsule Description:</strong> ${capsuleDetails.description}</li>
             <li><strong>📅 Release Date:</strong> ${new Date(capsuleDetails.releaseAt).toLocaleDateString()}</li>
           </ul>
 
