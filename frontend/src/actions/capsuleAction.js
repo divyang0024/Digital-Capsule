@@ -58,7 +58,7 @@ export const updateCapsuleStatus = (userId) => async (dispatch) => {
     
     const formData = new FormData();
     formData.append("userId", userId);
-    await axios.put(`https://digital-capsule-backend.vercel.app/capsule/me`,userId,config);
+    await axios.put(`https://digital-capsule-backend.vercel.app/capsule/status/update`,userId,config);
 
     dispatch(UPDATE_USER_CAPSULE_STATUS_SUCCESS());
   } catch (error) {
