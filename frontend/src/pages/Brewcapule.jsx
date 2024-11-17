@@ -126,7 +126,7 @@ function Brewcapsule() {
   return (
     <>
       <div className="flex justify-center items-center">
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md flex-grow">
+        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md  w-[80%] text-[#283149]">
           <div className="mb-4">
             <label htmlFor="title" className="block font-medium mb-1">
               Title (Max 20 words):
@@ -251,9 +251,12 @@ function Brewcapsule() {
 
           {formError && <div className="text-red-500 mt-2">{formError}</div>}
 
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Create Capsule
+          <div className="flex justify-center my-5">
+          <button type="submit" className="bg-[#283149] text-white border-2 border-white  hover:bg-white hover:text-[#283149] hover:border-2 hover:border-[#283149]  
+          font-bold py-2 px-4 rounded">
+               Create Capsule 
           </button>
+          </div>
         </form>
       </div>
       {loading && (

@@ -16,6 +16,8 @@ import PublicCapsule from './PublicCapsule';
 import Brewcapule from './Brewcapule';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import userImg from '../assets/user.png';
+
 
 function Dashboard() {
   const [currentContent, setCurrentContent] = useState('mycapsules');
@@ -62,46 +64,47 @@ useEffect(() => {
   return (
     <div className='main-container'>
       <div className='sidebar-container'>
-        <h1 className="header-container">Yaadgar</h1>
-        <div className='profile-container'>
-          <FaUserCircle className='user-icon' />
+          <h1 className="header-container text-[#283149]">Yaadgaar</h1>
+        <div className='profile-container cursor-pointer'>
+          {/* <FaUserCircle className='user-icon' /> */}
+          <img src={userImg} />
           <h1 className='username-name'>{user.user.username}</h1>
-          <h1 className='username-email'>{user.user.email}</h1>
+          <h1 className='username-email text-md font-semibold'>{user.user.email}</h1>
         </div>
-        <div className='togglebar-container'>
+        <div className='togglebar-container text-[#283149]'>
 
-          <div className={currentContent=='mycapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm text-black"} onClick={() => toggleContent('mycapsules')}>
-            <BsCapsule className={currentContent=='mycapsules'?"togglebar-icons text-[#CDFAD5] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl "} />
+          <div className={currentContent=='mycapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm "} onClick={() => toggleContent('mycapsules')}>
+            <BsCapsule className={currentContent=='mycapsules'?"togglebar-icons drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl "} />
             <button className="toggle-button">My capsules</button>
           </div>
-          <div className={currentContent=='privatecapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm text-black"} onClick={() => toggleContent('privatecapsules')}>
-            <SiPrivateinternetaccess className={currentContent=='privatecapsules'?"togglebar-icons text-[#F6FDC3] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl text-[CDFAD5] "} />
+          <div className={currentContent=='privatecapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm"} onClick={() => toggleContent('privatecapsules')}>
+            <SiPrivateinternetaccess className={currentContent=='privatecapsules'?"togglebar-icons drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl "} />
             <button className="toggle-button">Private capsules</button>
           </div>
-          <div className={currentContent=='publiccapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm text-black"} onClick={() => toggleContent('publiccapsules')}>
-            <IoEarthSharp className={currentContent=='publiccapsules'?"togglebar-icons text-[#FFFFFF] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl text-[CDFAD5]"} />
+          <div className={currentContent=='publiccapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm"} onClick={() => toggleContent('publiccapsules')}>
+            <IoEarthSharp className={currentContent=='publiccapsules'?"togglebar-icons drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl"} />
             <button className="toggle-button">Public capsules</button>
           </div>
-          <div className={currentContent=='brewcapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm text-black"} onClick={() => toggleContent('brewcapsules')}>
-            <GiCampCookingPot className={currentContent=='brewcapsules'?"togglebar-icons text-[#FF8080] drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl text-[CDFAD5]"} />
+          <div className={currentContent=='brewcapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm"} onClick={() => toggleContent('brewcapsules')}>
+            <GiCampCookingPot className={currentContent=='brewcapsules'?"togglebar-icons drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]":"text-xl"} />
             <button className="toggle-button">Brew capsule</button>
           </div>
         </div>
         <div className="logout-container">
-          <IoLogOut className='logout-icon' />
-          <button onClick={handleLogout}>Logout</button>
+          <IoLogOut className='logout-icon text-[#283149]' />
+          <button onClick={handleLogout} className="text-[#283149]" >Logout</button>
         </div>
       </div>
       <div className='content-container'>
       <div className='panel-menu-container'>
-      <div className='panel-container'>
+      <div className='panel-container text-white'>
       Howdy there! {user.user.name} 👋
       </div>
       <div>
       <Menu as="div" className="relative inline-block text-left">
       <div>
-        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-[#FF8080] px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-[#FF8080]">
-          Menu
+        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset  bg-white ">
+          <span className="text-[#283149]"> Menu </span> 
         </MenuButton>
       </div>
 

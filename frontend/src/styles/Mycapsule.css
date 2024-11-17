@@ -3,10 +3,30 @@
 @tailwind utilities;
 
 @layer base {
-    .mycapsule-container{
-        @apply grid grid-cols-3 gap-2;
+    .mycapsule-container {
+        @apply grid grid-cols-3 gap-4 p-4;
     }
-    .capsulecard-container{
-        @apply bg-white shadow-md p-2 rounded-xl;
+
+    .capsulecard-container {
+        @apply shadow-lg p-2 rounded-xl transition-transform duration-500 ease-in-out;
+    }
+
+    .capsule-design {
+        perspective: 1000px; /* Add custom perspective property */
+        animation: tilting 2s ease-in-out 0s infinite alternate;
+    box-shadow: 20px 20px red;
+    border: 2px solid grey;
+    }
+
+    @keyframes tilting {
+        0% {
+            transform: rotateY(10deg)  scale(1);
+        }
+        50% {
+            transform: rotateY(-10deg)  scale(1.02);
+        }
+        100% {
+            transform: rotateY(10deg)  scale(1.02);
+        }
     }
 }
