@@ -55,9 +55,6 @@ function Mycapsule() {
     return () => clearInterval(intervalId);
   }, [dispatch]);
 
-
-
-
   function concat(text, count) {
     let words = text.split(" ");
 

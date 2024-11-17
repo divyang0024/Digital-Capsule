@@ -82,13 +82,21 @@ const getUserCapsules = catchAsyncErrors(async (req, res, next) => {
 
 //update capsule status
 const updateCapsuleStatus = catchAsyncErrors(async (req, res, next) => {
-  const capsule = await Capsule.findByIdAndUpdate(req.body.userId, { isOpen: true });
+  const { capsuleIds } = req.body; // Receiving multiple capsuleIds from the request body
+
+  // Update the `isOpen` status for multiple capsules
+  const updatedCapsules = await Capsule.updateMany(
+    { _id: { $in: capsuleIds } },
+    { $set: { isOpen: true } }
+  );
+
   res.status(200).json({
     success: true,
-    data: capsule,
-    msg: "capsule status updated",
+    data: updatedCapsules,
+    msg: "Capsule status updated",
   });
 });
+
 
 //get user private capsule
 const getUserPrivateCapsule = catchAsyncErrors(async (req, res, next) => {

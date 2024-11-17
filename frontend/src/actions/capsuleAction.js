@@ -48,23 +48,26 @@ export const getUserCapsules = () => async (dispatch) => {
   }
 };
 
-export const updateCapsuleStatus = (userId) => async (dispatch) => {
+export const updateCapsuleStatus = (capsuleIds) => async (dispatch) => {
   try {
     dispatch(UPDATE_USER_CAPSULE_STATUS_REQUEST());
 
     const config = {
       withCredentials: true,
     };
-    
-    const formData = new FormData();
-    formData.append("userId", userId);
-    await axios.put(`https://digital-capsule-backend.vercel.app/capsule/status/update`,userId,config);
+
+    // Passing the correct data in the payload
+    const data = {
+      capsuleIds, // Send the list of capsule IDs that need their status updated
+    };
+    await axios.put(`https://digital-capsule-backend.vercel.app/capsule/status/update`, data, config);
 
     dispatch(UPDATE_USER_CAPSULE_STATUS_SUCCESS());
   } catch (error) {
     dispatch(UPDATE_USER_CAPSULE_STATUS_FAIL({ msg: error.response?.data.message || error.message }));
   }
 };
+
 
 export const clearErrors = () => (dispatch) => {
   dispatch(CLEAR_ERRORS());
