@@ -7,7 +7,7 @@ import multer from "multer";
 import { sendInvitationEmail } from "../utils/sendEmail.js";
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage }); 
+const upload = multer({ storage });
 
 //create capsule
 const createCapsule = catchAsyncErrors(async (req, res, next) => {
@@ -16,6 +16,12 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
   if (!title || !description || !content || !releaseAt) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
+
+  const validFriends = Array.isArray(friends)
+    ? friends
+      .map((email) => email.toLowerCase())
+      .filter((email, index, arr) => arr.indexOf(email) === index)
+    : [];
 
   let media = [];
   if (req.files && req.files.length > 0) {
@@ -43,7 +49,7 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
     content,
     createdBy: req.user.id,
     media,
-    visibility: visibility || "private",
+    visibility: visibility,
     isOpened: false,
     releaseAt,
   });
@@ -52,34 +58,87 @@ const createCapsule = catchAsyncErrors(async (req, res, next) => {
   user.capsulesCreated.push(newCapsule._id);
   await user.save();
 
-  await sendInvitationEmail(friends, newCapsule._id,req.user,newCapsule);
+  if (visibility === "private" && validFriends.length > 0) {
+    await sendInvitationEmail(validFriends, newCapsule._id, req.user, newCapsule);
+  }
 
   res.status(201).json({
     success: true,
-    message: "Capsule created successfully and invitations sent",
+    message: "Capsule created successfully" + (visibility === "private" && friends?.length > 0 ? " and invitations sent" : ""),
     data: newCapsule,
   });
 });
 
 //get user data
 const getUserCapsules = catchAsyncErrors(async (req, res, next) => {
-  const myCapsules = await Capsule.find({ createdBy: req.user.id }); 
+  const myCapsules = await Capsule.find({ createdBy: req.user.id });
 
   res.status(200).json({
     success: true,
     message: myCapsules.length > 0 ? "Capsules retrieved successfully" : "No capsules made yet",
-    data: myCapsules,  
+    data: myCapsules,
   });
 });
 
 //update capsule status
-const updateCapsuleStatus=catchAsyncErrors(async (req, res, next) => {
-  const capsule = await Capsule.findByIdAndUpdate(req.body.userId, {isOpen:true});
+const updateCapsuleStatus = catchAsyncErrors(async (req, res, next) => {
+  const capsule = await Capsule.findByIdAndUpdate(req.body.userId, { isOpen: true });
   res.status(200).json({
     success: true,
-    data:capsule,
-    msg:"capsule status updated", 
+    data: capsule,
+    msg: "capsule status updated",
   });
 });
 
-export { createCapsule,getUserCapsules,updateCapsuleStatus, upload };
+//get user private capsule
+const getUserPrivateCapsule = catchAsyncErrors(async (req, res, next) => {
+  const { capsulesInvited } = req.user;
+
+  if (!capsulesInvited || capsulesInvited.length === 0) {
+    return res.status(200).json({
+      success: true,
+      msg: "No private capsules found.",
+    });
+  }
+
+  const privateCapsules = await Capsule.find({ _id: { $in: capsulesInvited } }).select(
+    "title description content media releaseAt createdBy visibility isOpen"
+  );
+
+  if (privateCapsules.length === 0) {
+    return res.status(200).json({
+      success: true,
+      msg: "No valid private capsules found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    msg: "Private capsules retrieved successfully.",
+    data: privateCapsules,
+  });
+});
+
+const getUserPublicCapsule = catchAsyncErrors(async (req, res, next) => {
+
+  const publicCapsules = await Capsule.find({
+    visibility: "public",
+    isOpen: true,
+  }).select("title description content media releaseAt createdBy visibility isOpen");
+
+  if (!publicCapsules || publicCapsules.length === 0) {
+    return res.status(200).json({
+      success: true,
+      msg: "No public capsules available.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    msg: "Public capsules retrieved successfully.",
+    data: publicCapsules,
+  });
+});
+
+
+export { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, upload };
