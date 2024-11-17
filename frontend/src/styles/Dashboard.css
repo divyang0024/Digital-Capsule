@@ -9,11 +9,11 @@ body{
 }
 
 .main-container{
- @apply min-h-screen flex bg-[#F6FDC3];
+ @apply min-h-screen flex bg-[#35CCED];
 }
 
 .sidebar-container{
-    @apply bg-[#FFCF96] min-h-screen max-w-5xl flex flex-col items-center justify-evenly p-6;
+    @apply bg-white min-h-screen max-w-5xl flex flex-col items-center justify-evenly p-6;
 }
 
 .header-container{
@@ -72,3 +72,12 @@ body{
     @apply text-2xl;
 }
 }
+
+
+/* 
+blue - #35CCED
+background cream - #FFF7E3
+purple :- text-#FFF7E3
+light purple :- #7f84cd
+navy blue :- #283149
+pink :-  #FF6B6B */

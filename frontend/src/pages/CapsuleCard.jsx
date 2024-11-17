@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 function CapsuleCard({ name, description, id, capsule }) {
   return (
     <Link 
