@@ -119,14 +119,6 @@ function Mycapsule() {
     return formatTimeRemaining(timeLeft);
   }, [currentTime]);
 
-  if (loading && capsules.length === 0) {
-    return (
-      <div className="fixed top-0 left-0 z-50 h-full w-full bg-white bg-opacity-50 flex justify-center items-center overflow-y-auto">
-        <div className="loader"></div>
-      </div>
-    );
-  }
-
   const renderCapsuleCard = (capsule) => capsule.isOpen ? (
     <CapsuleCard
       key={capsule._id}
@@ -170,7 +162,15 @@ function Mycapsule() {
 
   return (
     <div className="mycapsule-container">
-      {capsules.map(renderCapsuleCard)}
+      {loading ? (
+        <div className="fixed top-0 left-0 z-50 h-full w-full bg-white bg-opacity-50 flex justify-center items-center overflow-y-auto">
+          <div className="loader"></div>
+        </div>
+      ) : capsules.length < 1 ? (
+        <h1>You have not created any capsule yet</h1>
+      ) : (
+        capsules.map(renderCapsuleCard)
+      )}
     </div>
   );
 }

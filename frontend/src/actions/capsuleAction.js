@@ -1,15 +1,22 @@
 import axios from "axios";
-import {BREW_CAPSULE_REQUEST,
-    BREW_CAPSULE_SUCCESS,
-    BREW_CAPSULE_FAIL,
-    GET_USER_CAPSULE_REQUEST,
-    GET_USER_CAPSULE_SUCCESS,
-    GET_USER_CAPSULE_FAIL,
-    UPDATE_USER_CAPSULE_STATUS_REQUEST,
-    UPDATE_USER_CAPSULE_STATUS_SUCCESS,
-    UPDATE_USER_CAPSULE_STATUS_FAIL,
-    CLEAR_ERRORS
-  } from "../reducer/capsuleReducer.js";
+import {
+  BREW_CAPSULE_REQUEST,
+  BREW_CAPSULE_SUCCESS,
+  BREW_CAPSULE_FAIL,
+  GET_USER_CAPSULE_REQUEST,
+  GET_USER_CAPSULE_SUCCESS,
+  GET_USER_CAPSULE_FAIL,
+  UPDATE_USER_CAPSULE_STATUS_REQUEST,
+  UPDATE_USER_CAPSULE_STATUS_SUCCESS,
+  UPDATE_USER_CAPSULE_STATUS_FAIL,
+  GET_PRIVATE_CAPSULE_REQUEST,
+  GET_PRIVATE_CAPSULE_SUCCESS,
+  GET_PRIVATE_CAPSULE_FAIL,
+  GET_PUBLIC_CAPSULE_REQUEST,
+  GET_PUBLIC_CAPSULE_SUCCESS,
+  GET_PUBLIC_CAPSULE_FAIL,
+  CLEAR_ERRORS
+} from "../reducer/capsuleReducer.js";
 
 export const brewCapsule = (capsuleData) => async (dispatch) => {
   try {
@@ -45,6 +52,38 @@ export const getUserCapsules = () => async (dispatch) => {
     dispatch(GET_USER_CAPSULE_SUCCESS(data));
   } catch (error) {
     dispatch(GET_USER_CAPSULE_FAIL({ msg: error.response?.data.message || error.message }));
+  }
+};
+
+export const getPrivateCapsules = () => async (dispatch) => {
+  try {
+    dispatch(GET_PRIVATE_CAPSULE_REQUEST());
+
+    const config = {
+      withCredentials: true,
+    };
+
+    const { data } = await axios.get(`https://digital-capsule-backend.vercel.app/capsule/me/private`, config);
+
+    dispatch(GET_PRIVATE_CAPSULE_SUCCESS(data));
+  } catch (error) {
+    dispatch(GET_PRIVATE_CAPSULE_FAIL({ msg: error.response?.data.message || error.message }));
+  }
+};
+
+export const getPublicCapsules = () => async (dispatch) => {
+  try {
+    dispatch(GET_PUBLIC_CAPSULE_REQUEST());
+
+    const config = {
+      withCredentials: true,
+    };
+
+    const { data } = await axios.get(`https://digital-capsule-backend.vercel.app/capsule/me/public`, config);
+
+    dispatch(GET_PUBLIC_CAPSULE_SUCCESS(data));
+  } catch (error) {
+    dispatch(GET_PUBLIC_CAPSULE_FAIL({ msg: error.response?.data.message || error.message }));
   }
 };
 

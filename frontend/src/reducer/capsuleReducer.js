@@ -41,6 +41,38 @@ export const capsuleReducer = createSlice({
                 state.capsule = null;
             state.error = action.payload;
         },
+        GET_PRIVATE_CAPSULE_REQUEST: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        GET_PRIVATE_CAPSULE_SUCCESS: (state, action) => {
+            state.loading = false;
+            state.recieved = true,
+                state.capsule = action.payload;
+            state.error = null;
+        },
+        GET_PRIVATE_CAPSULE_FAIL: (state, action) => {
+            state.loading = false;
+            state.recieved = false,
+                state.capsule = null;
+            state.error = action.payload;
+        },
+        GET_PUBLIC_CAPSULE_REQUEST: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        GET_PUBLIC_CAPSULE_SUCCESS: (state, action) => {
+            state.loading = false;
+            state.recieved = true,
+                state.capsule = action.payload;
+            state.error = null;
+        },
+        GET_PUBLIC_CAPSULE_FAIL: (state, action) => {
+            state.loading = false;
+            state.recieved = false,
+                state.capsule = null;
+            state.error = action.payload;
+        },
         UPDATE_USER_CAPSULE_STATUS_REQUEST: (state) => {
             state.loading = true;
             state.error = null;
@@ -67,6 +99,12 @@ export const {
     GET_USER_CAPSULE_REQUEST,
     GET_USER_CAPSULE_SUCCESS,
     GET_USER_CAPSULE_FAIL,
+    GET_PRIVATE_CAPSULE_REQUEST,
+    GET_PRIVATE_CAPSULE_SUCCESS,
+    GET_PRIVATE_CAPSULE_FAIL,
+    GET_PUBLIC_CAPSULE_REQUEST,
+    GET_PUBLIC_CAPSULE_SUCCESS,
+    GET_PUBLIC_CAPSULE_FAIL,
     UPDATE_USER_CAPSULE_STATUS_REQUEST,
     UPDATE_USER_CAPSULE_STATUS_SUCCESS,
     UPDATE_USER_CAPSULE_STATUS_FAIL,
