@@ -117,7 +117,7 @@ const getUserPrivateCapsule = catchAsyncErrors(async (req, res, next) => {
     return res.status(200).json({
       success: true,
       msg: "No valid private capsules found.",
-      data: privateCapsules,
+      data: [],
     });
   }
 
@@ -139,7 +139,7 @@ const getUserPublicCapsule = catchAsyncErrors(async (req, res, next) => {
     return res.status(200).json({
       success: true,
       msg: "No public capsules available.",
-      data: publicCapsules,
+      data: [],
     });
   }
 
