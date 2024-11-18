@@ -109,9 +109,7 @@ const getUserPrivateCapsule = catchAsyncErrors(async (req, res, next) => {
     });
   }
 
-  const privateCapsules = await Capsule.find({ _id: { $in: capsulesInvited } }).select(
-    "title description content media releaseAt createdBy visibility isOpen"
-  );
+  const privateCapsules = await Capsule.find({ _id: { $in: capsulesInvited } })
 
   if (privateCapsules.length === 0) {
     return res.status(200).json({
@@ -133,7 +131,7 @@ const getUserPublicCapsule = catchAsyncErrors(async (req, res, next) => {
   const publicCapsules = await Capsule.find({
     visibility: "public",
     isOpen: true,
-  }).select("title description content media releaseAt createdBy visibility isOpen");
+  })
 
   if (!publicCapsules || publicCapsules.length === 0) {
     return res.status(200).json({
