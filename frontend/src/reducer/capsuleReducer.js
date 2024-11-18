@@ -32,6 +32,7 @@ export const capsuleReducer = createSlice({
         GET_USER_CAPSULE_SUCCESS: (state, action) => {
             state.loading = false;
             state.recieved = true,
+                console.log(action.payload);
                 state.capsule = action.payload;
             state.error = null;
         },

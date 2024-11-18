@@ -106,23 +106,24 @@ const getUserPrivateCapsule = catchAsyncErrors(async (req, res, next) => {
     return res.status(200).json({
       success: true,
       msg: "No private capsules found.",
+      data: null,
     });
   }
 
-  const privateCapsules = await Capsule.find({ _id: { $in: capsulesInvited } })
+  const privateCapsules = await Capsule.find({ _id: { $in: capsulesInvited } });
 
   if (privateCapsules.length === 0) {
     return res.status(200).json({
       success: true,
       msg: "No valid private capsules found.",
-      data: privateCapsules,
+      data: null,
     });
   }
 
   res.status(200).json({
     success: true,
     msg: "Private capsules retrieved successfully.",
-    data: privateCapsules,
+    data: privateCapsules
   });
 });
 
