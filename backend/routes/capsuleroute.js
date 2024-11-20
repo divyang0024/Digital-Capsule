@@ -9,6 +9,6 @@ router.get("/me", isAuthenticatedUser, getUserCapsules);
 router.put("/status/update", isAuthenticatedUser, updateCapsuleStatus);
 router.get("/me/private", isAuthenticatedUser, getUserPrivateCapsule);
 router.get("/me/public", isAuthenticatedUser, getUserPublicCapsule);
-router.delete("delete/:id", isAuthenticatedUser, deleteCapsule);
+router.delete("/delete/:id", isAuthenticatedUser, deleteCapsule);
 
 export { router };
