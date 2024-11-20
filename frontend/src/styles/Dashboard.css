@@ -9,11 +9,16 @@ body{
 }
 
 .main-container{
- @apply min-h-screen flex bg-[#35CCED];
+ @apply min-h-screen flex ;
 }
 
-.sidebar-container{
-    @apply bg-white min-h-screen max-w-5xl flex flex-col items-center justify-evenly p-6;
+.main-container{
+    background-image: linear-gradient(#35CCED, #FFF7E3);
+}
+
+
+.sidebar-container {
+    @apply bg-white sticky top-0 max-h-screen max-w-5xl flex flex-col items-center justify-evenly p-6 border-l-8  border-[#35CCED] !important;
 }
 
 .header-container{

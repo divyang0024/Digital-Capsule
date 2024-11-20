@@ -6,6 +6,9 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import '../styles/Mycapsule.css';
+import { PiConfettiDuotone } from "react-icons/pi";
+import { PiSmileySadLight } from "react-icons/pi";
+
 // Separate utility functions
 const formatTimeRemaining = (timeLeft) => {
   const times = {
@@ -167,7 +170,14 @@ function PublicCapsule() {
           <div className="loader"></div>
         </div>
       ) : capsules.length < 1 ? (
-        <h1>You have not created any capsule yet</h1>
+
+        <div className="text-[#283149] font-semibold absolute top-[40%] left-[40%]">
+          <div className='flex items-center gap-2'> <h1> Your memory chest is empty!  Start filling it with cherished moments! </h1>  
+          <div className='flex flex row'> <PiConfettiDuotone /><PiConfettiDuotone /><PiConfettiDuotone /> </div>
+          {/* <PiSmileySadLight /> */}
+        </div>
+      </div>
+      
       ) : (
         capsules.map(renderCapsuleCard)
       )}

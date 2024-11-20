@@ -128,55 +128,56 @@ function Brewcapsule() {
       <div className="flex justify-center items-center">
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md  w-[80%] text-[#283149]">
           <div className="mb-4">
-            <label htmlFor="title" className="block font-medium mb-1">
+            {/* <label htmlFor="title" className="block font-medium mb-1">
               Title (Max 20 words):
-            </label>
+            </label> */}
             <input
               type="text"
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="border rounded-md px-3 py-2 w-full"
+              placeholder='Title (Max 20 words)'
+              className="border rounded-md px-3 py-2 w-full input-box"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="description" className="block font-medium mb-1">
+            {/* <label htmlFor="description" className="block font-medium mb-1">
               Description (Max 50 words):
-            </label>
+            </label> */}
             <textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="border rounded-md px-3 py-2 w-full"
+              placeholder='Description (Max 50 words)'
+              className="border rounded-md px-3 py-2 w-full input-box"
               required
             ></textarea>
           </div>
 
           <div className="mb-4">
-            <label htmlFor="content" className="block font-medium mb-1">
+            {/* <label htmlFor="content" className="block font-medium mb-1">
               Content (Max 500 words):
-            </label>
+            </label> */}
             <textarea
               id="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="border rounded-md px-3 py-2 w-full"
+              placeholder='Content (Max 500 words)'
+              className="border rounded-md px-3 py-2 w-full input-box"
               required
             ></textarea>
           </div>
 
           <div className="mb-4">
-            <label htmlFor="visibility" className="block font-medium mb-1">
-              Visibility:
-            </label>
             <select
               id="visibility"
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
-              className="border rounded-md px-3 py-2 w-full"
+              className="border rounded-md px-3 py-2 w-full input-box"
             >
+              {/* <option value="" disabled selected>Visibility</option> */}
               <option value="public">Public</option>
               <option value="private">Private</option>
             </select>
@@ -184,16 +185,17 @@ function Brewcapsule() {
 
           {visibility === 'private' && (
             <div className="mb-4">
-              <label htmlFor="friends" className="block font-medium mb-1">
+              {/* <label htmlFor="friends" className="block font-medium mb-1">
                 Invite Friends:
-              </label>
+              </label> */}
               <div className="flex gap-2">
                 <input
                   type="text"
                   id="friends"
                   value={friendInput}
+                  placeholder='Invite Friends'
                   onChange={(e) => setFriendInput(e.target.value)}
-                  className="border rounded-md px-3 py-2 w-full"
+                  className="border rounded-md px-3 py-2 w-full input-box"
                 />
                 <button
                   type="button"
@@ -220,22 +222,22 @@ function Brewcapsule() {
             </div>
           )}
 
-          <div className="mb-4">
-            <label htmlFor="releaseAt" className="block font-medium mb-1">
-              Release Date:
+          <div className="mb-4 flex items-center">
+            <label htmlFor="releaseAt" className="font-medium mr-2 text-nowrap">
+              Release Date
             </label>
             <input
               type="date"
               id="releaseAt"
               onChange={handleReleaseDate}
-              className="border rounded-md px-3 py-2 w-full"
+              className="border rounded-md px-3 py-2 w-full input-box"
               required
             />
             {dateError && <div className="text-red-500 mt-2">{dateError}</div>}
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="media" className="block font-medium mb-1">
+          <div className="mb-4 flex items-center">
+            <label htmlFor="media" className="block font-medium mb-1 text-nowrap">
               Upload Media:
             </label>
             <input
@@ -243,7 +245,7 @@ function Brewcapsule() {
               id="media"
               multiple
               onChange={(e) => handleMediaUpload(e.target.files)}
-              className="border rounded-md px-3 py-2 w-full"
+              className="border rounded-md px-3 py-2 w-full input-box"
               required
             />
             {mediaError && <div className="text-red-500 mt-2">{mediaError}</div>}
@@ -252,10 +254,10 @@ function Brewcapsule() {
           {formError && <div className="text-red-500 mt-2">{formError}</div>}
 
           <div className="flex justify-center my-5">
-          <button type="submit" className="bg-[#283149] text-white border-2 border-white  hover:bg-white hover:text-[#283149] hover:border-2 hover:border-[#283149]  
+            <button type="submit" className="bg-[#283149] text-white border-2 border-white  hover:bg-white hover:text-[#283149] hover:border-2 hover:border-[#283149]  
           font-bold py-2 px-4 rounded">
-               Create Capsule 
-          </button>
+              Create Capsule
+            </button>
           </div>
         </form>
       </div>

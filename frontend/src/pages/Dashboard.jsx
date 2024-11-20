@@ -65,12 +65,13 @@ useEffect(() => {
     <div className='main-container'>
       <div className='sidebar-container'>
           <h1 className="header-container text-[#283149]">Yaadgaar</h1>
-        <div className='profile-container cursor-pointer'>
+        <div className='profile-container cursor-pointer pb-2 border-b-2 border-[#283149]'>
           {/* <FaUserCircle className='user-icon' /> */}
           <img src={userImg} />
           <h1 className='username-name'>{user.user.username}</h1>
           <h1 className='username-email text-md font-semibold'>{user.user.email}</h1>
         </div>
+
         <div className='togglebar-container text-[#283149]'>
 
           <div className={currentContent=='mycapsules'?"toggle-button-contianer":"flex gap-2 items-center text-sm "} onClick={() => toggleContent('mycapsules')}>
@@ -98,7 +99,7 @@ useEffect(() => {
       <div className='content-container'>
       <div className='panel-menu-container'>
       <div className='panel-container text-white'>
-      Howdy there! {user.user.name} 👋
+      What’s up {user.user.name} 👋
       </div>
       <div>
       <Menu as="div" className="relative inline-block text-left">
