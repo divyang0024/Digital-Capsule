@@ -150,8 +150,23 @@ function Mycapsule() {
             {truncateText(capsule.title, 3)}
           </h1>
           <div className="text-white flex flex-row gap-3 mb-3">
-            <CiEdit />
-            <MdDelete />
+            {(() => {
+              const capsuleAgeInDays = Math.floor((Date.now() - new Date(capsule.createdAt).getTime()) / (24 * 3600 * 1000));
+              return capsuleAgeInDays <= 7 ? (
+                <>
+                  <div onClick={() => {
+                    console.log("you are clicking on edit button")
+                  }} title='you can edit this capsule'>
+                    <CiEdit />
+                  </div>
+                  <div onClick={() => {
+                    console.log("you are clicking on delete button")
+                  }} title='you can delete this capsule'>
+                    <MdDelete />
+                  </div>
+                </>
+              ) : null;
+            })()}
           </div>
         </div>
         <p className="text-white mb-4">{truncateText(capsule.description, 5)}</p>
@@ -170,11 +185,11 @@ function Mycapsule() {
         </div>
       ) : capsules.length < 1 ? (
         <div className="text-[#283149] font-semibold absolute top-[40%] left-[40%]">
-          <div className='flex items-center gap-2'> <h1> Your memory chest is empty!  Start filling it with cherished moments! </h1>  
-          <div className='flex flex row'> <PiConfettiDuotone /><PiConfettiDuotone /><PiConfettiDuotone /> </div>
-          {/* <PiSmileySadLight /> */}
+          <div className='flex items-center gap-2'> <h1> Your memory chest is empty!  Start filling it with cherished moments! </h1>
+            <div className='flex flex-row'> <PiConfettiDuotone /><PiConfettiDuotone /><PiConfettiDuotone /> </div>
+            {/* <PiSmileySadLight /> */}
+          </div>
         </div>
-      </div>
       ) : (
         capsules.map(renderCapsuleCard)
       )}

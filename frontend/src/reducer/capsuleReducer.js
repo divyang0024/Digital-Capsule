@@ -85,6 +85,18 @@ export const capsuleReducer = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        DELETE_USER_CAPSULE_REQUEST: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        DELETE_USER_CAPSULE_SUCCESS: (state, action) => {
+            state.loading = false;
+            state.error = null;
+        },
+        DELETE_USER_CAPSULE_FAIL: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
         CLEAR_ERRORS: (state) => {
             state.error = null;
             state.recieved = null;

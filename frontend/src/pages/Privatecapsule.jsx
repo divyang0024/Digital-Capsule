@@ -150,10 +150,6 @@ function Privatecapsule() {
           <h1 className="text-white text-2xl font-bold mb-2">
             {truncateText(capsule.title, 3)}
           </h1>
-          <div className="text-white flex flex-row gap-3 mb-3">
-            <CiEdit />
-            <MdDelete />
-          </div>
         </div>
         <p className="text-white mb-4">{truncateText(capsule.description, 5)}</p>
         <p className="text-white font-medium flex items-center gap-3">
@@ -172,7 +168,7 @@ function Privatecapsule() {
       ) : capsules.length < 1 ? (
         <div className="text-[#283149] font-semibold absolute top-[40%] left-[40%]">
           <div className='flex items-center gap-2'> <h1> Your memory chest is empty!  Start filling it with cherished moments! </h1>  
-          <div className='flex flex row'> <PiConfettiDuotone /><PiConfettiDuotone /><PiConfettiDuotone /> </div>
+          <div className='flex flex-row'> <PiConfettiDuotone /><PiConfettiDuotone /><PiConfettiDuotone /> </div>
           {/* <PiSmileySadLight /> */}
         </div>
       </div>

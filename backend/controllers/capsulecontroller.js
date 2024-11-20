@@ -149,5 +149,62 @@ const getUserPublicCapsule = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+const deleteCapsule = catchAsyncErrors(async (req, res, next) => {
+  const { id: capsuleId } = req.params;
 
-export { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, upload };
+  // Find the capsule to delete
+  const capsule = await Capsule.findById(capsuleId);
+
+  if (!capsule) {
+    return next(new ErrorHandler("Capsule not found", 404));
+  }
+
+  // Check if the user is authorized to delete the capsule
+  if (capsule.createdBy.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(new ErrorHandler("You are not authorized to delete this capsule", 403));
+  }
+
+  // Remove media from Cloudinary
+  if (capsule.media.length > 0) {
+    await Promise.all(
+      capsule.media.map(async (item) => {
+        await cloudinary.v2.uploader.destroy(item.public_id, (error, result) => {
+          if (error) {
+            console.error(`Failed to delete Cloudinary resource: ${item.public_id}`, error);
+          }
+        });
+      })
+    );
+  }
+
+  // Remove references from the creator's capsulesCreated array
+  const creator = await User.findById(capsule.createdBy);
+  if (creator) {
+    creator.capsulesCreated = creator.capsulesCreated.filter(
+      (createdCapsuleId) => createdCapsuleId.toString() !== capsule._id.toString()
+    );
+    await creator.save();
+  }
+
+  // Remove references from users who were invited to the capsule
+  const invitedUsers = await User.find({ capsulesInvited: capsule._id });
+  await Promise.all(
+    invitedUsers.map(async (user) => {
+      user.capsulesInvited = user.capsulesInvited.filter(
+        (invitedCapsuleId) => invitedCapsuleId.toString() !== capsule._id.toString()
+      );
+      await user.save();
+    })
+  );
+
+  // Finally, delete the capsule
+  await Capsule.findByIdAndDelete(capsuleId);
+
+  res.status(200).json({
+    success: true,
+    message: "Capsule and all references deleted successfully",
+  });
+});
+
+
+export { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, deleteCapsule,upload };

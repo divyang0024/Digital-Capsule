@@ -1,5 +1,5 @@
 import express from "express";
-import { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, upload } from "../controllers/capsulecontroller.js";
+import { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, deleteCapsule, upload } from "../controllers/capsulecontroller.js";
 import { isAuthenticatedUser } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -9,5 +9,6 @@ router.get("/me", isAuthenticatedUser, getUserCapsules);
 router.put("/status/update", isAuthenticatedUser, updateCapsuleStatus);
 router.get("/me/private", isAuthenticatedUser, getUserPrivateCapsule);
 router.get("/me/public", isAuthenticatedUser, getUserPublicCapsule);
+router.delete("delete/:id", isAuthenticatedUser, deleteCapsule);
 
 export { router };
