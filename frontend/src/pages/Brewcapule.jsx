@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { brewCapsule, clearErrors } from '../actions/capsuleAction';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function Brewcapsule() {
   const [title, setTitle] = useState('');
@@ -16,7 +17,7 @@ function Brewcapsule() {
   const [mediaError, setMediaError] = useState('');
   const [dateError, setDateError] = useState('');
   const [formError, setFormError] = useState('');
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error, recieved, capsule, loading } = useSelector((state) => state.capsule);
 
@@ -33,6 +34,9 @@ function Brewcapsule() {
       setFriends([]);
       setFriendInput('');
       window.scrollTo(0, 0);
+      setTimeout(() => {
+        location.reload();
+      }, 3000);
     }
     if (error) {
       toast.error('There was some problem making the capsule');
