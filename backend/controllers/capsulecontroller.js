@@ -208,10 +208,10 @@ const deleteCapsule = catchAsyncErrors(async (req, res, next) => {
 
 const updateCapsule = async (req, res) => {
   try {
-    const { capsuleId } = req.params;
+    const { id: capsuleId } = req.params;
     const { title, description, content } = req.body;
 
-console.log(capsuleId);
+    console.log(capsuleId);
 
     // Check if at least one field is present in the body
     if (!title && !description && !content) {
