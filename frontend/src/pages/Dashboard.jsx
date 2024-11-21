@@ -17,6 +17,7 @@ import Brewcapule from './Brewcapule';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import userImg from '../assets/user.png';
+import { Link } from "react-router-dom";
 
 
 function Dashboard() {
@@ -115,12 +116,12 @@ useEffect(() => {
       >
         <div className="py-1">
           <MenuItem>
-            <a
-              href="#"
+            <Link
+              to="/account"
               className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
             >
               Account settings
-            </a>
+            </Link>
           </MenuItem>
             <MenuItem>
               <button

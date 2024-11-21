@@ -40,7 +40,7 @@ function CapsuleDetails() {
   return (
  <div className="Capsule-detail-container py-10">
   <div className=" w-[35%] h-[3%] mx-auto text-black py-5 flex  items-center gap-3"> <span> <FaUser /> </span> <span> Username </span>  </div>
- <div className="detail-container flex flex-col w-[50%]">
+  <div className="detail-container flex flex-col w-[50%]">
     <div className="carousel">
       <ul className="slides">
         {capsuleData.media.map((image, index) => (
@@ -100,7 +100,7 @@ function CapsuleDetails() {
       
       {/* <p>{capsuleData.content}</p> */}
     </div>
-  </div>
+  </div> 
   </div>
   );
 }
