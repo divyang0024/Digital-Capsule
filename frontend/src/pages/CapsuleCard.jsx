@@ -12,7 +12,7 @@ function CapsuleCard({ name, description, id, capsule }) {
       state={{ capsuleData: capsule }}
     >
       {capsule.isOpen ? (
-        <div className="flex flex-col justify-center items-center text-center text-lg text-white font-semibold gap-3">
+        <div className="flex flex-row justify-center items-center text-center text-lg text-white font-semibold gap-3 h-[100%]">
           <h1>Capsule's open! fam</h1>
           <FaUnlock />
         </div>

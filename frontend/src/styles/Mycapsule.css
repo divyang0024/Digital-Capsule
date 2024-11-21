@@ -21,8 +21,8 @@
 
     .capsulecard-container {
         @apply shadow-lg p-4 rounded-xl transition-transform duration-500 ease-in-out;
-        min-height: 100px;
-        max-height:200px;
+        /* min-height: 100px; */
+        height:150px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
