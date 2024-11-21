@@ -6,7 +6,10 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { PiConfettiDuotone } from "react-icons/pi";
+import { useNavigate } from 'react-router-dom';
 import { PiSmileySadLight } from "react-icons/pi";
+import { Link } from "react-router-dom";
+
 import '../styles/Mycapsule.css';
 // Separate utility functions
 const formatTimeRemaining = (timeLeft) => {
@@ -21,6 +24,8 @@ const formatTimeRemaining = (timeLeft) => {
 
   return `${times.years}y ${times.months}m ${times.days}d ${times.hours}h ${times.minutes}m ${times.seconds}s`;
 };
+
+// const navigate = useNavigate();
 
 const truncateText = (text, wordCount) => {
   const words = text.split(" ");
@@ -154,11 +159,9 @@ function Mycapsule() {
               const capsuleAgeInDays = Math.floor((Date.now() - new Date(capsule.createdAt).getTime()) / (24 * 3600 * 1000));
               return capsuleAgeInDays <= 7 ? (
                 <>
-                  <div onClick={() => {
-                    console.log("you are clicking on edit button")
-                  }} title='you can edit this capsule'>
+                  <Link to="/edit">
                     <CiEdit />
-                  </div>
+                  </Link>
                   <div onClick={() => {
                     console.log("you are clicking on delete button")
                   }} title='you can delete this capsule'>

@@ -10,7 +10,9 @@ import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions.js';
 import ProtectedRoute from "./protectedRoute/ProtectedRoute.jsx";
 import Account from "./pages/AccountSettings.jsx";
+import EditCapsule from "./pages/EditCapsule.jsx";
 import { useEffect } from 'react';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -27,6 +29,8 @@ function App() {
         <Route path="/capsule/:id" element={<CapsuleDetails />} />
         <Route path="/capsule/invite/:email" element={<InvitePage />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/edit" element={<EditCapsule/>} />
+        
         <Route
           path="/"
           element={
