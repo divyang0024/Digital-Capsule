@@ -97,14 +97,14 @@ function CapsuleDetails() {
       </div>
       </div>
 
-      <div className="border-y-2 border-white">
+      <div className="border-t-2 border-white">
         <div className="w-[35%] h-[3%] mx-auto text-black py-5 flex items-center gap-3">
           <span>
             <FaUser />
           </span>
           <span> {user.user.name} </span>
         </div>
-        <div className="detail-container flex flex-col w-[50%] ">
+        <div className="detail-container flex flex-col w-[50%]">
           <div className="carousel">
             <ul className="slides">
               {capsuleData.media.map((image, index) => (
@@ -116,7 +116,7 @@ function CapsuleDetails() {
                     defaultChecked={index === 0}
                   />
                   <li className="slide-container">
-                    <div className="w-[100%] h-[300px] slide-image flex items-center justify-center border-2 border-gray-200 p-5">
+                    <div className="w-[100%] h-[300px] slide-image flex items-center justify-center p-5 bg-white">
                       <img
                         src={image.url}
                         alt={`Slide ${index + 1}`}
@@ -140,7 +140,7 @@ function CapsuleDetails() {
 
           <div className="flex flex-col mx-auto w-[70%]">
   <div className="min-h-20 h-auto p-4 rounded-lg my-5 w-[100%] bg-white">
-    <div className="font-semibold flex items-center gap-3 text-wrap">
+    <div className="font-semibold flex items-center gap-3 text-wrap border-black">
       Tagline {<IoIosArrowDropright />} {capsuleData.title}
     </div>
     <p

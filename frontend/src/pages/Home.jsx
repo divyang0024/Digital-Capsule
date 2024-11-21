@@ -82,7 +82,7 @@ function Home() {
           <Sections />
 
           <footer className='bg-[#FF6B6B] h-[10vh] w-[100vw] p-[2%] mt-[10vh]'>
-            <ul className='text-[#283149] font-semibold'>
+            <ul className='text-white text-lg font-semibold'>
               <li>yaadgaar</li>
             </ul>
           </footer>
