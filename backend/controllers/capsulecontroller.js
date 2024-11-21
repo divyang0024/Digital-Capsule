@@ -211,6 +211,8 @@ const updateCapsule = async (req, res) => {
     const { capsuleId } = req.params;
     const { title, description, content } = req.body;
 
+console.log(capsuleId);
+
     // Check if at least one field is present in the body
     if (!title && !description && !content) {
       return res.status(400).json({ success: false, message: 'No update data provided.' });
