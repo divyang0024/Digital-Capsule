@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrors, getUserCapsules, updateCapsuleStatus, deleteCapsule } from '../actions/capsuleAction.js';
+import { clearErrors, getUserCapsules, updateCapsuleStatus } from '../actions/capsuleAction.js';
 import CapsuleCard from './CapsuleCard.jsx';
 import { FaCalendarAlt } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
@@ -8,8 +8,6 @@ import { MdDelete } from "react-icons/md";
 import { PiConfettiDuotone } from "react-icons/pi";
 import { PiSmileySadLight } from "react-icons/pi";
 import '../styles/Mycapsule.css';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 // Separate utility functions
 const formatTimeRemaining = (timeLeft) => {
   const times = {
@@ -54,20 +52,6 @@ function Mycapsule() {
   useEffect(() => {
     dispatch(getUserCapsules());
   }, [dispatch]);
-
-  const handleDeleteCapsule = async (capsuleId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this capsule?");
-    if (confirmDelete) {
-      try {
-       dispatch(deleteCapsule(capsuleId));
-        setCapsules((prevCapsules) => prevCapsules.filter((capsule) => capsule._id !== capsuleId));
-        toast.success("Capsule deleted successfully");
-      } catch (error) {
-        toast.error("Failed to delete capsule. Please try again.");
-      }
-    }
-  };
-
 
   // Process capsule data and update states
   useEffect(() => {
@@ -170,7 +154,14 @@ function Mycapsule() {
               const capsuleAgeInDays = Math.floor((Date.now() - new Date(capsule.createdAt).getTime()) / (24 * 3600 * 1000));
               return capsuleAgeInDays <= 7 ? (
                 <>
-                  <div onClick={() => handleDeleteCapsule(capsule._id)} title='you can delete this capsule'>
+                  <div onClick={() => {
+                    console.log("you are clicking on edit button")
+                  }} title='you can edit this capsule'>
+                    <CiEdit />
+                  </div>
+                  <div onClick={() => {
+                    console.log("you are clicking on delete button")
+                  }} title='you can delete this capsule'>
                     <MdDelete />
                   </div>
                 </>
@@ -202,7 +193,6 @@ function Mycapsule() {
       ) : (
         capsules.map(renderCapsuleCard)
       )}
-      <ToastContainer />
     </div>
   );
 }

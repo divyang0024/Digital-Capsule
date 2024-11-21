@@ -165,7 +165,8 @@ ul.slides input {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: white;
+    color:white;
     opacity: 0.5;
     margin: 10px;
 }
@@ -232,4 +233,8 @@ input:checked + .slide-container .nav label { display: block; }
   @keyframes animated-cursor{
     from{border-right-color: #283149;}
     to{border-right-color: transparent;}
+  }
+
+  .edit-capsule-container{
+    background-image: linear-gradient(#35CCED, #FFF7E3);
   }

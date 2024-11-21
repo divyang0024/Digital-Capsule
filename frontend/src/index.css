@@ -249,3 +249,10 @@
     transform: translateX(0) rotate(0deg);
   }
 }
+
+.account-settings{
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: -50px;
+  background-position: top center;
+}

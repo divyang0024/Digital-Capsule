@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Signup from './pages/Signup.jsx';
 import Home from './pages/Home.jsx';
@@ -8,6 +9,8 @@ import InvitePage from './pages/InvitePage.jsx';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/userActions.js';
 import ProtectedRoute from "./protectedRoute/ProtectedRoute.jsx";
+import Account from "./pages/AccountSettings.jsx";
+import EditCapsule from "./pages/EditCapsule.jsx";
 import { useEffect } from 'react';
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/capsule/:id" element={<CapsuleDetails />} />
         <Route path="/capsule/invite/:email" element={<InvitePage />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/edit" element={<EditCapsule/>} />
+        
         <Route
           path="/"
           element={
