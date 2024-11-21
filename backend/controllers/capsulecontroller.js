@@ -206,5 +206,38 @@ const deleteCapsule = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+const updateCapsule = async (req, res) => {
+  try {
+    const { capsuleId } = req.params;
+    const { title, description, content } = req.body;
 
-export { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, deleteCapsule,upload };
+    const updateFields = {};
+    if (title) updateFields.title = title;
+    if (description) updateFields.description = description;
+    if (content) updateFields.content = content;
+
+    const updatedCapsule = await Capsule.findByIdAndUpdate(
+      capsuleId,
+      { $set: updateFields },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedCapsule) {
+      return res.status(404).json({ success: false, message: 'Capsule not found.' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Capsule updated successfully.',
+      capsule: updatedCapsule,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error.',
+    });
+  }
+};
+
+
+export { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, deleteCapsule, updateCapsule, upload };
