@@ -133,14 +133,27 @@ export const updateCapsule = (updatedCapsule) => async (dispatch) => {
   try {
     dispatch(EDIT_USER_CAPSULE_REQUEST());
 
+    // Check if there are any updates to send
+    const updateFields = {};
+    if (updatedCapsule.title) updateFields.title = updatedCapsule.title;
+    if (updatedCapsule.description) updateFields.description = updatedCapsule.description;
+    if (updatedCapsule.content) updateFields.content = updatedCapsule.content;
+
+    // If no fields are updated, return early
+    if (Object.keys(updateFields).length === 0) {
+      dispatch(EDIT_USER_CAPSULE_FAIL({ msg: 'No changes detected.' }));
+      return;
+    }
+
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
 
+    // Perform the update request only if fields were updated
     await axios.put(
       `https://digital-capsule-backend.vercel.app/capsule/update/${updatedCapsule.id}`,
-      updatedCapsule,
+      updateFields, // Send only the updated fields
       config
     );
 
@@ -153,8 +166,6 @@ export const updateCapsule = (updatedCapsule) => async (dispatch) => {
     );
   }
 };
-
-
 
 export const clearErrors = () => (dispatch) => {
   dispatch(CLEAR_ERRORS());

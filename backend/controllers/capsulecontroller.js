@@ -211,6 +211,11 @@ const updateCapsule = async (req, res) => {
     const { capsuleId } = req.params;
     const { title, description, content } = req.body;
 
+    // Check if at least one field is present in the body
+    if (!title && !description && !content) {
+      return res.status(400).json({ success: false, message: 'No update data provided.' });
+    }
+
     const updateFields = {};
     if (title) updateFields.title = title;
     if (description) updateFields.description = description;
@@ -238,6 +243,5 @@ const updateCapsule = async (req, res) => {
     });
   }
 };
-
 
 export { createCapsule, getUserCapsules, updateCapsuleStatus, getUserPrivateCapsule, getUserPublicCapsule, deleteCapsule, updateCapsule, upload };

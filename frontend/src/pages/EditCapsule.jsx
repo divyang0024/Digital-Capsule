@@ -9,6 +9,8 @@ import { updateCapsule } from '../actions/capsuleAction'; // Import your update 
 function EditCapsule() {
   const location = useLocation();
   const { capsuleData } = location.state || {};
+
+  // Ensure capsuleData is available before initializing the state
   const [title, setTitle] = useState(capsuleData?.title || '');
   const [description, setDescription] = useState(capsuleData?.description || '');
   const [content, setContent] = useState(capsuleData?.content || '');
@@ -22,13 +24,15 @@ function EditCapsule() {
 
   const dispatch = useDispatch();
 
+  // Update initialState if capsuleData changes
   useEffect(() => {
-    // Update initial state when capsuleData is available
-    setInitialState({
-      title: capsuleData?.title || '',
-      description: capsuleData?.description || '',
-      content: capsuleData?.content || '',
-    });
+    if (capsuleData) {
+      setInitialState({
+        title: capsuleData.title,
+        description: capsuleData.description,
+        content: capsuleData.content,
+      });
+    }
   }, [capsuleData]);
 
   // Handle form submission
@@ -52,14 +56,16 @@ function EditCapsule() {
     // Create updatedCapsule object only if fields are modified
     const updatedCapsule = {};
 
-    if (title !== capsuleData.title) updatedCapsule.title = title;
-    if (description !== capsuleData.description) updatedCapsule.description = description;
-    if (content !== capsuleData.content) updatedCapsule.content = content;
+    if (title !== initialState.title) updatedCapsule.title = title;
+    if (description !== initialState.description) updatedCapsule.description = description;
+    if (content !== initialState.content) updatedCapsule.content = content;
 
     // Only proceed if there are any changes
     if (Object.keys(updatedCapsule).length > 0) {
       // Include the id in the updatedCapsule object
       updatedCapsule.id = capsuleData._id;
+
+      console.log('Updated Capsule:', updatedCapsule); // Debugging line
 
       // Dispatch the update action with updated capsule data
       dispatch(updateCapsule(updatedCapsule));
