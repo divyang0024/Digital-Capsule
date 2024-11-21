@@ -5,10 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link, useLocation } from 'react-router-dom';
 import leftArrow from "../assets/leftArrow.webp";
 import { updateCapsule } from '../actions/capsuleAction'; // Import your update action
+import { useNavigate } from 'react-router-dom';
 
 function EditCapsule() {
   const location = useLocation();
   const { capsuleData } = location.state || {};
+  const navigate = useNavigate();
 
   // Ensure capsuleData is available before initializing the state
   const [title, setTitle] = useState(capsuleData?.title || '');
@@ -70,6 +72,7 @@ function EditCapsule() {
       // Dispatch the update action with updated capsule data
       dispatch(updateCapsule(updatedCapsule));
       toast.success('Capsule updated successfully!');
+      setTimeout(() => navigate('/', { replace: true }), 3000);
     } else {
       // If no changes, show a message and prevent dispatch
       toast.info('No changes detected.');

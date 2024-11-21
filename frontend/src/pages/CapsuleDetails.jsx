@@ -7,12 +7,14 @@ import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import leftArrow from "../assets/leftArrow.webp";
 import { IoIosArrowDropright } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 function CapsuleDetails() {
   const location = useLocation();
   const { capsuleData } = location.state || {};
   const descriptionRef = useRef(null);
   const [isTypingComplete, setTypingComplete] = useState(false);
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
     if (!capsuleData?.description || !descriptionRef.current) return;
@@ -49,7 +51,7 @@ function CapsuleDetails() {
         <span>
           <FaUser />
         </span>
-        <span> Username </span>
+        <span> {user.user.name} </span>
       </div>
       <div className="detail-container flex flex-col w-[50%]">
         <div className="carousel">
@@ -90,9 +92,8 @@ function CapsuleDetails() {
           <div className="min-h-20 h-auto p-4 rounded-lg my-5 w-[100%] bg-white">
             <div className="font-semibold flex items-center gap-3">Tagline  {<IoIosArrowDropright />} {capsuleData.title}  </div>
             <p
-              className={`capsule-description ${
-                isTypingComplete ? "cursor-none" : ""
-              }`}
+              className={`capsule-description ${isTypingComplete ? "cursor-none" : ""
+                }`}
               ref={descriptionRef}
             >
             </p>
