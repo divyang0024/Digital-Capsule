@@ -9,6 +9,9 @@ import {
   UPDATE_USER_CAPSULE_STATUS_REQUEST,
   UPDATE_USER_CAPSULE_STATUS_SUCCESS,
   UPDATE_USER_CAPSULE_STATUS_FAIL,
+  DELETE_USER_CAPSULE_REQUEST,
+  DELETE_USER_CAPSULE_SUCCESS,
+  DELETE_USER_CAPSULE_FAIL,
   GET_PRIVATE_CAPSULE_REQUEST,
   GET_PRIVATE_CAPSULE_SUCCESS,
   GET_PRIVATE_CAPSULE_FAIL,
@@ -104,6 +107,22 @@ export const updateCapsuleStatus = (capsuleIds) => async (dispatch) => {
     dispatch(UPDATE_USER_CAPSULE_STATUS_SUCCESS());
   } catch (error) {
     dispatch(UPDATE_USER_CAPSULE_STATUS_FAIL({ msg: error.response?.data.message || error.message }));
+  }
+};
+
+export const deleteCapsule = (capsuleId) => async (dispatch) => {
+  try {
+    dispatch(DELETE_USER_CAPSULE_REQUEST());
+
+    const config = {
+      withCredentials: true,
+    };
+
+    await axios.delete(`https://digital-capsule-backend.vercel.app/capsule/delete/${capsuleId}`, config);
+
+    dispatch(DELETE_USER_CAPSULE_SUCCESS(capsuleId));
+  } catch (error) {
+    dispatch(DELETE_USER_CAPSULE_FAIL({ msg: error.response?.data.message || error.message }));
   }
 };
 

@@ -91,6 +91,7 @@ export const capsuleReducer = createSlice({
         },
         DELETE_USER_CAPSULE_SUCCESS: (state, action) => {
             state.loading = false;
+            state.capsule = state.capsule.filter(capsule => capsule._id !== action.payload.capsuleId);
             state.error = null;
         },
         DELETE_USER_CAPSULE_FAIL: (state, action) => {
@@ -120,5 +121,8 @@ export const {
     UPDATE_USER_CAPSULE_STATUS_REQUEST,
     UPDATE_USER_CAPSULE_STATUS_SUCCESS,
     UPDATE_USER_CAPSULE_STATUS_FAIL,
+    DELETE_USER_CAPSULE_REQUEST,
+    DELETE_USER_CAPSULE_SUCCESS,
+    DELETE_USER_CAPSULE_FAIL,
     CLEAR_ERRORS,
 } = capsuleReducer.actions;
