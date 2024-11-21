@@ -141,7 +141,7 @@ function CapsuleDetails() {
           <div className="flex flex-col mx-auto w-[70%]">
   <div className="min-h-20 h-auto p-4 rounded-lg my-5 w-[100%] bg-white">
     <div className="font-semibold flex items-center gap-3 text-wrap border-black">
-      Tagline {<IoIosArrowDropright />} {capsuleData.title}
+      Title {<IoIosArrowDropright />} {capsuleData.title}
     </div>
     <p
       className={`capsule-description ${isTypingComplete ? "cursor-none" : ""} whitespace-normal`}
