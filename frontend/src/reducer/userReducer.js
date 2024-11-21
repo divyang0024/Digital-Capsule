@@ -43,6 +43,18 @@ export const userReducer = createSlice({
       state.user = null;
       state.error = action.payload;
     },
+    EDIT_USER_REQUEST: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    EDIT_USER_SUCCESS: (state, action) => {
+      state.loading = false;
+      state.error = null;
+    },
+    EDIT_USER_FAIL: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     LOAD_USER_REQUEST: (state) => {
       state.loading = true;
       state.isAuthenticated = false;

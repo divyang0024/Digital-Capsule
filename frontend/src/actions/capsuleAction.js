@@ -12,6 +12,9 @@ import {
   DELETE_USER_CAPSULE_REQUEST,
   DELETE_USER_CAPSULE_SUCCESS,
   DELETE_USER_CAPSULE_FAIL,
+  EDIT_USER_CAPSULE_REQUEST,
+  EDIT_USER_CAPSULE_SUCCESS,
+  EDIT_USER_CAPSULE_FAIL,
   GET_PRIVATE_CAPSULE_REQUEST,
   GET_PRIVATE_CAPSULE_SUCCESS,
   GET_PRIVATE_CAPSULE_FAIL,
@@ -125,6 +128,32 @@ export const deleteCapsule = (capsuleId) => async (dispatch) => {
     dispatch(DELETE_USER_CAPSULE_FAIL({ msg: error.response?.data.message || error.message }));
   }
 };
+
+export const updateCapsule = (updatedCapsule) => async (dispatch) => {
+  try {
+    dispatch(EDIT_USER_CAPSULE_REQUEST());
+
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+    await axios.put(
+      `https://digital-capsule-backend.vercel.app/capsule/update/${updatedCapsule.id}`,
+      updatedCapsule,
+      config
+    );
+
+    dispatch(EDIT_USER_CAPSULE_SUCCESS());
+  } catch (error) {
+    dispatch(
+      EDIT_USER_CAPSULE_FAIL({
+        msg: error.response?.data.message || error.message,
+      })
+    );
+  }
+};
+
 
 
 export const clearErrors = () => (dispatch) => {

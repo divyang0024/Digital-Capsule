@@ -10,6 +10,7 @@ import { PiSmileySadLight } from "react-icons/pi";
 import '../styles/Mycapsule.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 // Separate utility functions
 const formatTimeRemaining = (timeLeft) => {
   const times = {
@@ -170,6 +171,9 @@ function Mycapsule() {
               const capsuleAgeInDays = Math.floor((Date.now() - new Date(capsule.createdAt).getTime()) / (24 * 3600 * 1000));
               return capsuleAgeInDays <= 7 ? (
                 <>
+                  <Link to="/edit" state={{ capsuleData: capsule }}>
+                    <CiEdit />
+                  </Link>
                   <div onClick={() => handleDeleteCapsule(capsule._id)} title='you can delete this capsule'>
                     <MdDelete />
                   </div>

@@ -85,6 +85,18 @@ export const capsuleReducer = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        EDIT_USER_CAPSULE_REQUEST: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        EDIT_USER_CAPSULE_SUCCESS: (state, action) => {
+            state.loading = false;
+            state.error = null;
+        },
+        EDIT_USER_CAPSULE_FAIL: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
         DELETE_USER_CAPSULE_REQUEST: (state) => {
             state.loading = true;
             state.error = null;
@@ -121,6 +133,9 @@ export const {
     UPDATE_USER_CAPSULE_STATUS_REQUEST,
     UPDATE_USER_CAPSULE_STATUS_SUCCESS,
     UPDATE_USER_CAPSULE_STATUS_FAIL,
+    EDIT_USER_CAPSULE_REQUEST,
+    EDIT_USER_CAPSULE_SUCCESS,
+    EDIT_USER_CAPSULE_FAIL,
     DELETE_USER_CAPSULE_REQUEST,
     DELETE_USER_CAPSULE_SUCCESS,
     DELETE_USER_CAPSULE_FAIL,
