@@ -15,7 +15,7 @@ app.use(cookieParser()); // Parsing cookies
 app.use(express.json()); // Parsing JSON bodies
 
 // Allowed origins for CORS
-const allowedOrigins = ['http://localhost:5173', 'https://digital-capsule.vercel.app'];
+const allowedOrigins = ['http://localhost:5173', 'https://yaad-gaar.vercel.app'];
 
 // CORS setup with dynamic origin
 app.use(cors({
