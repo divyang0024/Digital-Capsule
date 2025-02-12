@@ -37,7 +37,7 @@ const sendInvitationEmail = async (friendsEmails, capsuleId,sender,capsuleDetail
 
           <p style="text-align: center;">
             <a 
-              href="https://digital-capsule.vercel.app/capsule/invite/${email}?capsuleId=${capsuleId}" 
+              href="https://yaad-gaar.vercel.app/capsule/invite/${email}?capsuleId=${capsuleId}" 
               style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: #fff; text-decoration: none; border-radius: 5px;">
               View Capsule Invitation
             </a>
