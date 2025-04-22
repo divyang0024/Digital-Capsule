@@ -56,6 +56,7 @@ const sendInvitationEmail = async (friendsEmails, capsuleId,sender,capsuleDetail
     try {
       await transporter.sendMail(mailOptions);
     } catch (error) {
+      console.log(error);
       throw new ErrorHandler(`Failed to send email to ${email}`, 500);
     }
   }
