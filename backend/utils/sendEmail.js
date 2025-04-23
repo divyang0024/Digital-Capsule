@@ -23,12 +23,37 @@ const sendInvitationEmail = async (friendsEmails, capsuleId, sender, capsuleDeta
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          @media only screen and (max-width: 600px) {
+            .email-container {
+              width: 100% !important;
+              padding: 10px !important;
+            }
+            .email-content {
+              padding: 0 15px 15px !important;
+            }
+            .capsule-detail {
+              flex-direction: column !important;
+            }
+            .detail-icon {
+              margin-bottom: 10px !important;
+            }
+            .detail-content {
+              margin-left: 0 !important;
+              margin-top: 10px !important;
+            }
+            .cta-button {
+              padding: 14px 25px !important;
+              font-size: 16px !important;
+            }
+          }
+        </style>
       </head>
       <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; color: #32012F; background-color: #f4f4f8;">
         <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f4f4f8;">
           <tr>
             <td align="center" style="padding: 40px 0;">
-              <table cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(50, 1, 47, 0.15);">
+              <table class="email-container" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(50, 1, 47, 0.15);">
                 <!-- Premium Header Design -->
                 <tr>
                   <td>
@@ -60,10 +85,11 @@ const sendInvitationEmail = async (friendsEmails, capsuleId, sender, capsuleDeta
                 
                 <!-- Main Content -->
                 <tr>
-                  <td style="padding: 0 30px 30px;">
+                  <td class="email-content" style="padding: 0 30px 30px;">
                     <!-- Invitation message -->
                     <div style="text-align: center; margin-bottom: 30px; margin-top: -20px; position: relative; z-index: 2;">
-                      <img src="https://cdn.pixabay.com/photo/2018/01/04/15/51/404-error-3060993_960_720.png" alt="Envelope" width="80" style="margin-bottom: 15px; filter: drop-shadow(0 5px 15px rgba(50, 1, 47, 0.2));">
+                      <!-- Replace the broken envelope image with an emoji -->
+                      <div style="font-size: 60px; margin-bottom: 15px;">💌</div>
                       <h2 style="font-size: 24px; margin: 10px 0; background: linear-gradient(to right, #F75A5A, #FFA955); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;">A Special Invitation For You</h2>
                     </div>
                     
@@ -98,27 +124,27 @@ const sendInvitationEmail = async (friendsEmails, capsuleId, sender, capsuleDeta
                       <!-- Content -->
                       <div style="padding: 20px;">
                         <!-- Title -->
-                        <div style="display: flex; margin-bottom: 20px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed rgba(50, 1, 47, 0.1);">
-                          <div style="min-width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #F75A5A, #FFA955); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">✨</div>
-                          <div style="margin-left: 15px; flex: 1;">
+                        <div class="capsule-detail" style="display: flex; margin-bottom: 20px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed rgba(50, 1, 47, 0.1);">
+                          <div class="detail-icon" style="min-width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #F75A5A, #FFA955); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">✨</div>
+                          <div class="detail-content" style="margin-left: 15px; flex: 1;">
                             <div style="font-size: 14px; color: #32012F; opacity: 0.7; margin-bottom: 5px;">Capsule Title</div>
                             <div style="font-weight: bold; color: #32012F; font-size: 18px;">${capsuleDetails.title}</div>
                           </div>
                         </div>
                         
                         <!-- Description -->
-                        <div style="display: flex; margin-bottom: 20px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed rgba(50, 1, 47, 0.1);">
-                          <div style="min-width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #FFA955, #6DE1D2); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">📜</div>
-                          <div style="margin-left: 15px; flex: 1;">
+                        <div class="capsule-detail" style="display: flex; margin-bottom: 20px; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px dashed rgba(50, 1, 47, 0.1);">
+                          <div class="detail-icon" style="min-width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #FFA955, #6DE1D2); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">📜</div>
+                          <div class="detail-content" style="margin-left: 15px; flex: 1;">
                             <div style="font-size: 14px; color: #32012F; opacity: 0.7; margin-bottom: 5px;">Capsule Description</div>
                             <div style="color: #32012F; line-height: 1.6;">${capsuleDetails.description}</div>
                           </div>
                         </div>
                         
                         <!-- Release Date -->
-                        <div style="display: flex; align-items: flex-start;">
-                          <div style="min-width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6DE1D2, #F75A5A); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">📅</div>
-                          <div style="margin-left: 15px; flex: 1;">
+                        <div class="capsule-detail" style="display: flex; align-items: flex-start;">
+                          <div class="detail-icon" style="min-width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6DE1D2, #F75A5A); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">📅</div>
+                          <div class="detail-content" style="margin-left: 15px; flex: 1;">
                             <div style="font-size: 14px; color: #32012F; opacity: 0.7; margin-bottom: 5px;">Release Date</div>
                             <div style="font-weight: bold; color: #32012F; font-size: 18px; padding: 5px 15px; background: rgba(109,225,210,0.1); display: inline-block; border-radius: 30px;">${new Date(capsuleDetails.releaseAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
                           </div>
@@ -143,7 +169,8 @@ const sendInvitationEmail = async (friendsEmails, capsuleId, sender, capsuleDeta
                         <div style="position: absolute; inset: 0; background: linear-gradient(to right, #F75A5A, #FFA955); filter: blur(15px); opacity: 0.5; border-radius: 50px; transform: translateY(5px);"></div>
                         
                         <!-- Actual button -->
-                        <a href="${process.env.HEHEHEHE}${email}?capsuleId=${capsuleId}" 
+                        <a href="${process.env.HEHEHEHE}/capsule/invite/${email}?capsuleId=${capsuleId}" 
+                          class="cta-button"
                           style="position: relative; display: inline-block; padding: 16px 40px; background: linear-gradient(to right, #F75A5A, #FFA955); 
                                 color: white; text-decoration: none; font-weight: bold; font-size: 18px; letter-spacing: 0.5px; border-radius: 50px; 
                                 box-shadow: 0 10px 25px rgba(247, 90, 90, 0.3); transition: all 0.3s ease;">
